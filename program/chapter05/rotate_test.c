@@ -1,6 +1,5 @@
-int rotate_left()
+int rotate_left(int a)
 {
-  unsigned int a = 8;
   int result = ((a << 30) | (a >> 2));
 
   return result;

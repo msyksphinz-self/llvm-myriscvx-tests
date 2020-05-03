@@ -1,7 +1,5 @@
-int compare_slt()
+int compare_slt(int a, int b)
 {
-  int a = 5;
-  int b = 3;
   int c, d, e, f, g, h;
 
   c = (a == b); // seq, c = 0

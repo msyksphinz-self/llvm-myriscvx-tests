@@ -20,3 +20,10 @@ int test_math()
 
   return 0;
 }
+
+
+int long_value()
+{
+  long long_const = 0x0123456789abcdefULL;
+  return 0;
+}
