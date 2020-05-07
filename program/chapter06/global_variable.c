@@ -1,7 +1,5 @@
-int g = 100;
-int test_g_acess() {
-  int update = 101;
-  int c = g;
-  g = update;
-  return c;
+extern int global_val;
+
+void update_global() {
+  global_val += 1;
 }
