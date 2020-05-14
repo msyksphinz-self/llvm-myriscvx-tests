@@ -6,19 +6,28 @@ TARGET = \
 	struct_char \
 	do_while_count \
 	if_ctrl \
-	select_exp
+	select_exp \
+	simple_select_exp \
+	switch_table \
+	caller_callee
+
 
 .PHONY: $(TARGET)
 all: $(TARGET)
 
-pointer.o: pointer.c Makefile
-	riscv32-unknown-elf-gcc -O3 -o $@ $^ -c
-	riscv32-unknown-elf-objdump -D $@ > $@.dmp
+# CLANG_OPTIONS =
+# CLANG_OPTIONS += -O3
+
+simple_select_exp_CLANG_OPTION = -O3
 
 include $(realpath ../common.mk ../../common.mk)
 
 define MAKEALL
-$(1) : $(1).myriscvx32.gcc $(1).myriscvx64.gcc
+$(1) :  $(1).myriscvx32.static.S \
+		$(1).myriscvx64.static.S \
+		$(1).myriscvx32.pic.S \
+		$(1).myriscvx64.pic.S
+
 $(eval $(call WHOLE_RULES,$(1)))
 endef
 

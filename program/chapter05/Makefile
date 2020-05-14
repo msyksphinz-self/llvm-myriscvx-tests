@@ -11,6 +11,9 @@ TARGET = \
 	100_return \
 	simple_pattern_match
 
+CLANG_OPTIONS  =
+CLANG_OPTIONS += -O3
+
 .PHONY: $(TARGET)
 all: $(TARGET)
 
