@@ -2,6 +2,7 @@
 *.log
 *.ll
 *.S
+!crt.S
 *.s
 *.o
 *.dmp
