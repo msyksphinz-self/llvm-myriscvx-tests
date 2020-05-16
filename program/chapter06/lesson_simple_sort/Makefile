@@ -29,6 +29,11 @@ $(TARGET).myriscvx32.static.medany.S: $(TARGET).riscv.static.bc Makefile
 $(TARGET).myriscvx64.static.medany.S: $(TARGET).riscv.static.bc Makefile
 	-$(LLC) -march=myriscvx64	$(COMMON_OPTIONS) -relocation-model=static --code-model=medium -filetype=asm -o $(TARGET).myriscvx64.static.medany.S $(TARGET).riscv.static.bc		> $(TARGET).myriscvx64.static.asm.log 2>&1
 
+$(TARGET).riscv32.static.medany.S: $(TARGET).riscv.static.bc Makefile
+	-$(LLC) -march=riscv32	$(COMMON_OPTIONS) -relocation-model=static --code-model=medium -filetype=asm -o $(TARGET).riscv32.static.medany.S $(TARGET).riscv.static.bc		> $(TARGET).riscv32.static.asm.log 2>&1
+$(TARGET).riscv64.static.medany.S: $(TARGET).riscv.static.bc Makefile
+	-$(LLC) -march=riscv64	$(COMMON_OPTIONS) -relocation-model=static --code-model=medium -filetype=asm -o $(TARGET).riscv64.static.medany.S $(TARGET).riscv.static.bc		> $(TARGET).riscv64.static.asm.log 2>&1
+
 $(TARGET).riscv.static.bc: $(TARGET).c Makefile
 	$(CLANG) $(CLANG_OPTIONS) $(TARGET).c -c -target riscv64-unknown-elf -emit-llvm  -o $(TARGET).riscv.static.bc
 	$(DUMP) $(TARGET).riscv.static.bc -o $(TARGET).riscv.static.bc.ll

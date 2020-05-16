@@ -1,13 +1,4 @@
-int select_min_index(int array[], int start_index, int array_size)
-{
-  int min = start_index;
-  for (int j = start_index+1; j < array_size; j++) {
-    if (array[j] < array[min]) {
-      min = j;
-    }
-  }
-  return min;
-}
+extern int select_min_index(int array[], int start_index, int array_size);
 
 void simple_sort(int array[], int array_size)
 {
