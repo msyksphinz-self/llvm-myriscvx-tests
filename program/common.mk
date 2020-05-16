@@ -15,6 +15,21 @@ COMMON_OPTIONS =
 COMMON_OPTIONS += --debug
 COMMON_OPTIONS += -disable-tail-calls
 
+VIEW_DAG := 0
+VIEW_FUNC := 0
+
+ifneq ($(VIEW_DAG),0)
+	COMMON_OPTIONS += --view-dag-combine1-dags
+	COMMON_OPTIONS += --view-legalize-dags
+	COMMON_OPTIONS += --view-dag-combine2-dags
+	COMMON_OPTIONS += --view-isel-dags
+	COMMON_OPTIONS += --view-sched-dags
+ifneq ($(VIEW_FUNC),0)
+	COMMON_OPTIONS += --filter-view-dags=$(VIEW_FUNC)
+endif
+endif
+
+
 define WHOLE_RULES
 
 # $(1): $(1).myriscvx32.static.S.o $(1).myriscvx32.pic.S.o $(1).riscv32.static.S.o $(1).riscv32.pic.S.o \
@@ -152,6 +167,9 @@ endef  # WHOLE_RULES
 # %.mips.bc: %.c Makefile
 # 	$(CLANG) $(CLANG_OPTIONS) $< -c -target mips64-unknown-elf -emit-llvm -o $@
 # 	$(DUMP) $@ -o $@.ll
+
+dotbook:
+	../../../dot_book_wrapper.sh $(TARGET)
 
 clean:
 	$(RM) *.gcc *.bc *.riscv*.S *.myriscvx*.S *.bc.ll *.log *.dump *.dmp *.o *.riscv *.gcc
