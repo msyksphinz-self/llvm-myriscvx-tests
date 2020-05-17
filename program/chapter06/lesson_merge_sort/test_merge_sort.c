@@ -29,17 +29,20 @@ int main()
 {
   int i;
 
+  int start_cycle, stop_cycle;
+  asm volatile("csrr %0,cycle":"=r"(start_cycle));
   merge_sort(numbers, NUM_ITEMS);
+  asm volatile("csrr %0,cycle":"=r"(stop_cycle));
 
-  for (i = 0; i < NUM_ITEMS; i++) {
-    printf("%d\n", numbers[i]);
-    if (i > 1 && numbers[i] < numbers[i-1]) {
-      printf("Sort result failed. %d < %d\n", numbers[i], numbers[i-1]);
-      return 1;
-    }
-  }
+  // for (i = 0; i < NUM_ITEMS; i++) {
+  //   printf("%d\n", numbers[i]);
+  //   if (i > 1 && numbers[i] < numbers[i-1]) {
+  //     printf("Sort result failed. %d < %d\n", numbers[i], numbers[i-1]);
+  //     return 1;
+  //   }
+  // }
 
-  printf("Sort succeeded\n");
+  printf("Sort succeeded. Executed Cycle = %d\n", stop_cycle - start_cycle);
 
   return 0;
 }

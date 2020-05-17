@@ -7,7 +7,7 @@ LLC   = ../../../../llvm-myriscvx100/build/bin/llc
 DUMP  = ../../../../llvm-myriscvx100/build/bin/llvm-dis
 
 
-# CLANG_OPTIONS += -O3
+CLANG_OPTIONS += -O3
 
 all: test test_$(TARGET).static.riscv
 

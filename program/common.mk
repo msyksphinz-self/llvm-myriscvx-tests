@@ -1,8 +1,8 @@
-CLANG 	?= ../../../llvm-myriscvx100/build/bin/clang
-LLC   	?= ../../../llvm-myriscvx100/build/bin/llc
-DUMP  	?= ../../../llvm-myriscvx100/build/bin/llvm-dis
-MC    	?= ../../../llvm-myriscvx100/build/bin/llvm-mc
-OBJDUMP ?= ../../../llvm-myriscvx100/build/bin/llvm-objdump
+CLANG 	?= $(realpath ../../../llvm-myriscvx100/build/bin/clang        ../../../../llvm-myriscvx100/build/bin/clang       )
+LLC   	?= $(realpath ../../../llvm-myriscvx100/build/bin/llc		   ../../../../llvm-myriscvx100/build/bin/llc		  )
+DUMP  	?= $(realpath ../../../llvm-myriscvx100/build/bin/llvm-dis	   ../../../../llvm-myriscvx100/build/bin/llvm-dis	  )
+MC    	?= $(realpath ../../../llvm-myriscvx100/build/bin/llvm-mc	   ../../../../llvm-myriscvx100/build/bin/llvm-mc	  )
+OBJDUMP ?= $(realpath ../../../llvm-myriscvx100/build/bin/llvm-objdump ../../../../llvm-myriscvx100/build/bin/llvm-objdump)
 
 RISCV32 = ${HOME}/riscv32
 RISCV64 = ${HOME}/riscv64
@@ -116,11 +116,11 @@ $(1).mips64.pic.o: $(1).mips.bc Makefile
 	-$(LLC) -march=mips64		$(COMMON_OPTIONS) -relocation-model=pic -filetype=obj -o $(1).mips64.pic.o $(1).mips.bc				> $(1).mips64.pic.obj.log 2>&1
 
 $(1).riscv.pic.bc: $(1).c Makefile
-	$(CLANG) $(CLANG_OPTIONS) -fpic $(1).c -c -target riscv64-unknown-elf -emit-llvm -o $(1).riscv.pic.bc
+	$(CLANG) $(CLANG_OPTIONS) -fpic -c $(1).c -emit-llvm -o $(1).riscv.pic.bc
 	$(DUMP) $(1).riscv.pic.bc -o $(1).riscv.pic.bc.ll
 
 $(1).riscv.static.bc: $(1).c Makefile
-	$(CLANG) $(CLANG_OPTIONS) $(1).c -c  -target riscv64-unknown-elf -emit-llvm -o $(1).riscv.static.bc
+	$(CLANG) $(CLANG_OPTIONS) $(1).c -c -emit-llvm -o $(1).riscv.static.bc
 	$(DUMP) $(1).riscv.static.bc -o $(1).riscv.static.bc.ll
 
 endef  # WHOLE_RULES

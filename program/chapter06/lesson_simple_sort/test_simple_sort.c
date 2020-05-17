@@ -2,18 +2,6 @@
 #include <stdio.h>
 #include <unistd.h>
 
-int select_min_index(int array[], int start_index, int array_size)
-{
-  int min = start_index;
-  for (int j = start_index+1; j < array_size; j++) {
-    if (array[j] < array[min]) {
-      min = j;
-    }
-  }
-  return min;
-}
-
-
 void simple_sort(int numbers[], int array_size);
 
 // #define NUM_ITEMS 10
@@ -40,17 +28,20 @@ int main()
 {
   int i;
 
+  int start_cycle, stop_cycle;
+  asm volatile("csrr %0,cycle":"=r"(start_cycle));
   simple_sort(numbers, NUM_ITEMS);
+  asm volatile("csrr %0,cycle":"=r"(stop_cycle));
 
-  for (i = 0; i < NUM_ITEMS; i++) {
-    printf("%d\n", numbers[i]);
-    if (i > 1 && numbers[i] < numbers[i-1]) {
-      printf("Sort result failed. %d < %d\n", numbers[i], numbers[i-1]);
-      return 1;
-    }
-  }
+  // for (i = 0; i < NUM_ITEMS; i++) {
+  //   printf("%d\n", numbers[i]);
+  //   if (i > 1 && numbers[i] < numbers[i-1]) {
+  //     printf("Sort result failed. %d < %d\n", numbers[i], numbers[i-1]);
+  //     return 1;
+  //   }
+  // }
 
-  printf("Sort succeeded\n");
+  printf("Sort succeeded. Executed Cycle = %d\n", stop_cycle - start_cycle);
 
   return 0;
 }
