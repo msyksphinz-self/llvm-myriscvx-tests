@@ -80,10 +80,10 @@ $(1).mips32.static.o: $(1).mips.bc Makefile
 	-$(LLC) -march=mips			$(COMMON_OPTIONS) -relocation-model=static -filetype=obj -o $(1).mips32.static.o $(1).mips.bc		> $(1).mips32.static.obj.log 2>&1
 $(1).mips64.static.o: $(1).mips.bc Makefile
 	-$(LLC) -march=mips64		$(COMMON_OPTIONS) -relocation-model=static -filetype=obj -o $(1).mips64.static.o $(1).mips.bc		> $(1).mips64.static.obj.log 2>&1
-$(1).myriscvx32.static.medany.S: $(1).riscv.pic.bc Makefile
-	-$(LLC) -march=myriscvx32	$(COMMON_OPTIONS) -relocation-model=static --code-model=medium -filetype=asm -o $(1).myriscvx32.static.medany.S $(1).riscv.pic.bc		> $(1).myriscvx32.pic.asm.log 2>&1
-$(1).myriscvx64.static.medany.S: $(1).riscv.pic.bc Makefile
-	-$(LLC) -march=myriscvx64	$(COMMON_OPTIONS) -relocation-model=static --code-model=medium -filetype=asm -o $(1).myriscvx64.static.medany.S $(1).riscv.pic.bc		> $(1).myriscvx64.pic.asm.log 2>&1
+$(1).myriscvx32.static.medany.S: $(1).riscv32.static.bc Makefile
+	-$(LLC) -march=myriscvx32	$(COMMON_OPTIONS) -relocation-model=static --code-model=medium -filetype=asm -o $(1).myriscvx32.static.medany.S $(1).riscv32.static.bc		> $(1).myriscvx32.pic.asm.log 2>&1
+$(1).myriscvx64.static.medany.S: $(1).riscv64.static.bc Makefile
+	-$(LLC) -march=myriscvx64	$(COMMON_OPTIONS) -relocation-model=static --code-model=medium -filetype=asm -o $(1).myriscvx64.static.medany.S $(1).riscv64.static.bc		> $(1).myriscvx64.pic.asm.log 2>&1
 
 $(1).riscv32.pic.S: $(1).riscv32.pic.bc Makefile
 	-$(LLC) -march=riscv32		$(COMMON_OPTIONS) -relocation-model=pic -filetype=asm -o $(1).riscv32.pic.S $(1).riscv32.pic.bc			> $(1).riscv32.pic.asm.log 2>&1
@@ -117,19 +117,19 @@ $(1).mips64.pic.o: $(1).mips.bc Makefile
 
 $(1).riscv32.pic.bc: $(1).c Makefile
 	$(CLANG) $(CLANG32_OPTIONS) -fpic -c $(1).c -emit-llvm -o $(1).riscv32.pic.bc
-	$(DUMP) $(1).riscv.pic.bc -o $(1).riscv.pic.bc.ll
+	$(DUMP) $(1).riscv32.pic.bc -o $(1).riscv32.pic.bc.ll
 
 $(1).riscv32.static.bc: $(1).c Makefile
 	$(CLANG) $(CLANG32_OPTIONS) $(1).c -c -emit-llvm -o $(1).riscv32.static.bc
-	$(DUMP) $(1).riscv.static.bc -o $(1).riscv.static.bc.ll
+	$(DUMP) $(1).riscv32.static.bc -o $(1).riscv32.static.bc.ll
 
 $(1).riscv64.pic.bc: $(1).c Makefile
 	$(CLANG) $(CLANG64_OPTIONS) -fpic -c $(1).c -emit-llvm -o $(1).riscv64.pic.bc
-	$(DUMP) $(1).riscv.pic.bc -o $(1).riscv.pic.bc.ll
+	$(DUMP) $(1).riscv64.pic.bc -o $(1).riscv64.pic.bc.ll
 
 $(1).riscv64.static.bc: $(1).c Makefile
 	$(CLANG) $(CLANG64_OPTIONS) $(1).c -c -emit-llvm -o $(1).riscv64.static.bc
-	$(DUMP) $(1).riscv.static.bc -o $(1).riscv.static.bc.ll
+	$(DUMP) $(1).riscv64.static.bc -o $(1).riscv64.static.bc.ll
 
 endef  # WHOLE_RULES
 
