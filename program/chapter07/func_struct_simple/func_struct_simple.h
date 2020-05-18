@@ -21,6 +21,6 @@ struct S128
 
 struct S256
 {
-  struct S128 s128_0;
-  struct S128 s128_1;
+  struct S128 s128;
+  uint32_t    f[4];
 };

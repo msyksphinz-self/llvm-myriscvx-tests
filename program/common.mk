@@ -4,8 +4,8 @@ DUMP  	?= $(realpath ../../../llvm-myriscvx100/build/bin/llvm-dis	   ../../../..
 MC    	?= $(realpath ../../../llvm-myriscvx100/build/bin/llvm-mc	   ../../../../llvm-myriscvx100/build/bin/llvm-mc	  )
 OBJDUMP ?= $(realpath ../../../llvm-myriscvx100/build/bin/llvm-objdump ../../../../llvm-myriscvx100/build/bin/llvm-objdump)
 
-RISCV32 = ${HOME}/riscv32
-RISCV64 = ${HOME}/riscv64
+RISCV32 = ${HOME}/work/riscv32
+RISCV64 = ${HOME}/work/riscv64
 
 func_arguments.o: func_arguments.c Makefile
 	riscv32-unknown-elf-gcc -O0 $< -c -o $@
