@@ -4,11 +4,13 @@ TARGET = func_struct_simple
 
 all: $(TARGET) test_func_struct_simple test_func_struct_simple_rv32 func_struct_simple_gcc
 
-CLANG_OPTIONS =
-CLANG_OPTIONS += -O1
-# CLANG_OPTIONS += -m32
-CLANG_OPTIONS += --target=riscv32-unknown-elf
-# CLANG_OPTIONS += --target=riscv64-unknown-elf
+CLANG32_OPTIONS =
+CLANG32_OPTIONS += -O1
+CLANG32_OPTIONS += --target=riscv32-unknown-elf
+
+CLANG64_OPTIONS =
+CLANG64_OPTIONS += -O1
+CLANG64_OPTIONS += --target=riscv64-unknown-elf
 
 test_func_struct_simple: test_$(TARGET).c $(TARGET).myriscvx64.static.medany.S crt.S syscalls.c
 	PATH=$(RISCV64)/bin LD_LIBRARY_PATH=$(RISCV64)/lib riscv64-unknown-elf-gcc -march=rv64g -DPREALLOCATE=1 -static -mcmodel=medany -std=gnu99 -O2 -ffast-math -fno-common -fno-builtin-printf -nostdlib -nostartfiles -lm -lgcc $^ -o $@ -T link.ld
