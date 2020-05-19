@@ -8,6 +8,7 @@ extern int func_S256 (struct S256 elem);
 
 int main()
 {
+
   struct S256 s256;
   s256.s128.s64.s32.a = 100;
   s256.s128.s64.s32.b = 200;

@@ -16,7 +16,7 @@ struct S64
 struct S128
 {
   struct S64 s64;
-  uint64_t   e;
+  int64_t   e;
 };
 
 struct S256
