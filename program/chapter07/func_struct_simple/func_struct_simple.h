@@ -1,4 +1,3 @@
-// #define STRUCT_SIZE (1)
 #include <stdint.h>
 
 struct S32
