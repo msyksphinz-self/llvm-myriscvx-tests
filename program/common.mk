@@ -13,7 +13,7 @@ func_arguments.o: func_arguments.c Makefile
 
 COMMON_OPTIONS =
 COMMON_OPTIONS += --debug
-COMMON_OPTIONS += -disable-tail-calls
+COMMON_OPTIONS += $(LLC_OPTIONS)
 
 VIEW_DAG := 0
 VIEW_FUNC := 0
