@@ -6,18 +6,13 @@
 #define IMAGE_FILE "train-images-idx3-ubyte"
 #define LABEL_FILE "train-labels-idx1-ubyte"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
 #include <stdint.h>
-#include <unistd.h>
-#include <fcntl.h>
 
 #ifdef GPERF
 #include <gperftools/profiler.h>
 #endif // GPERF
 
-#include "./fix16.h"
+#include "./libfixmath/fix16.h"
 
 #define INPUTNO  (28*28)    // No of input cell
 #define OUTPUTNO (10)
@@ -115,14 +110,14 @@ const char* hex_enum[] = {"0", "1", "2", "3", "4", "5", "6", "7",
                           "8", "9", "a", "b", "c", "d", "e", "f"};
 
 // fix16_t wh0[INPUTNO * HIDDENNO];
-fix16_t wb0[HIDDENNO];          
+fix16_t wb0[HIDDENNO];
 fix16_t wh1[HIDDENNO * OUTPUTNO];
-fix16_t wb1[OUTPUTNO];          
+fix16_t wb1[OUTPUTNO];
 
 const fix16_t *wh0 = (fix16_t *)_binary_wh0_bin_start;  // [INPUTNO * HIDDENNO];
 const fix16_t *c_wb0 = (fix16_t *)_binary_wb0_bin_start;  // [HIDDENNO];
 const fix16_t *c_wh1 = (fix16_t *)_binary_wh1_bin_start;  // [HIDDENNO * OUTPUTNO];
-const fix16_t *c_wb1 = (fix16_t *)_binary_wb1_bin_start;  // [OUTPUTNO];          
+const fix16_t *c_wb1 = (fix16_t *)_binary_wb1_bin_start;  // [OUTPUTNO];
 
 int main ()
 {
@@ -132,7 +127,7 @@ int main ()
   for (i = 0; i < HIDDENNO; i++)            wb0[i] = c_wb0[i];
   for (i = 0; i < HIDDENNO * OUTPUTNO; i++) wh1[i] = c_wh1[i];
   for (i = 0; i < OUTPUTNO; i++)            wb1[i] = c_wb1[i];
-	
+
   TestNetwork (INPUTNO, OUTPUTNO, HIDDENNO, wh0, wb0, wh1, wb1);
 
   return 0;
@@ -153,16 +148,15 @@ void TestNetwork (const int input_size,
 				  const fix16_t *wh1,  // [hidden_size][output_size],
 				  const fix16_t *wb1)  // [output_size]
 {
-  const char *message0 = "=== TestNetwork ===\n";
-  write (STDOUT_FILENO, message0, strlen (message0));
+  printf ("=== TestNetwork ===\n");
 
   in_data  = &_binary_t10k_images_idx3_ubyte_start[0x10];
   ans_data = &_binary_t10k_labels_idx1_ubyte_start[0x08];
 
   int correct = 0;
   uint32_t start_cycle[2], stop_cycle[2];
-  rdmcycle(start_cycle[1], start_cycle[0]);
-  
+  // rdmcycle(start_cycle[1], start_cycle[0]);
+
   for (int no_input = 0; no_input < 100 * BATCH_SIZE; no_input += BATCH_SIZE) {
 	for (int i = 0; i < 28 * 28 * BATCH_SIZE; i++) {
 	  /*
@@ -170,7 +164,7 @@ void TestNetwork (const int input_size,
 		write (STDOUT_FILENO, hex_enum[(hex_value >> 4) & 0x0f], 2);
 		write (STDOUT_FILENO, hex_enum[(hex_value >> 0) & 0x0f], 2);
 	  */
-	  
+
 	  fix16_in_data[i] = (in_data[i] << 8);
 	  /*
 		if ((i % 28) == 27) { write (STDOUT_FILENO, "\r\n", 2); }
@@ -190,7 +184,7 @@ void TestNetwork (const int input_size,
 	ans_data += BATCH_SIZE;
   }
 
-  rdmcycle(stop_cycle[1], stop_cycle[0]);
+  // rdmcycle(stop_cycle[1], stop_cycle[0]);
 
   printf ("Correct = %d\n", correct);
   printf ("Time = %08x%08x - %08x%08x\n", stop_cycle[1], stop_cycle[0], start_cycle[1], start_cycle[0]);
@@ -349,17 +343,17 @@ int argmax (const int x_size, fix16_t *o)
 }
 
 
-double rand_normal (double mu, double sigma)
-{
-  // double z = sqrt( -2.0 * log(drnd()) ) * sin( 2.0 * M_PI * drnd() );
-  // return mu + sigma*z;
-  return drnd ();
-}
-
-
-double drnd ()
-{
-  double rndno;
-  while ((rndno = (double)rand() / RAND_MAX) == 1.0);
-  return rndno;
-}
+// double rand_normal (double mu, double sigma)
+// {
+//   // double z = sqrt( -2.0 * log(drnd()) ) * sin( 2.0 * M_PI * drnd() );
+//   // return mu + sigma*z;
+//   return drnd ();
+// }
+//
+//
+// double drnd ()
+// {
+//   double rndno;
+//   while ((rndno = (double)rand() / RAND_MAX) == 1.0);
+//   return rndno;
+// }
