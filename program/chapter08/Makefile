@@ -1,12 +1,12 @@
-TARGET = fixup_branch object_test
+TARGET = fixup_branch object_test object_sample
 ARCH = riscv32 myriscvx32
 
 .PHONY: all $(TARGET) object_sample
 
-CLANG = ../../../llvm-myriscvx80/build/bin/clang
-LLC   = ../../../llvm-myriscvx80/build/bin/llc
-DUMP  = ../../../llvm-myriscvx80/build/bin/llvm-dis
-MC    = ../../../llvm-myriscvx80/build/bin/llvm-mc
+CLANG 	= ../../../llvm-myriscvx100/build/bin/clang
+LLC   	= ../../../llvm-myriscvx100/build/bin/llc
+DUMP  	= ../../../llvm-myriscvx100/build/bin/llvm-dis
+MC    	= ../../../llvm-myriscvx100/build/bin/llvm-mc
 OBJDUMP = ../../../llvm-myriscvx80/build/bin/llvm-objdump
 
 # CLANG = ../../../llvm-myriscvx80/build/bin/clang
