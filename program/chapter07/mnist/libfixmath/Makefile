@@ -33,7 +33,7 @@ $(PROJECT).a: $(OBJ_FILES)
 
 .c.o:
 	$(CLANG) $(CLANG64_OPTIONS) $< -c -emit-llvm -o $@.bc
-	$(LLC) -march=myriscvx64 $(COMMON_OPTIONS) -relocation-model=static --code-model=medium -filetype=asm -o $@.S $@.bc > $@.log 2>&1
+	$(LLC) -march=myriscvx64 $(COMMON_OPTIONS) -relocation-model=static --code-model=medium -filetype=asm -o $@.S $@.bc
 	riscv64-unknown-elf-gcc -c $@.S -o $@
 
 # Clean rules
