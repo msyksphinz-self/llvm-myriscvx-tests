@@ -15,9 +15,9 @@ OBJDUMP = ../../../llvm-myriscvx80/build/bin/llvm-objdump
 # MC    = ../../../llvm-myriscvx100/build/bin/llvm-mc
 # OBJDUMP = ../../../llvm-myriscvx100/build/bin/llvm-objdump
 
-object_sample: object_sample.c
-	riscv64-unknown-elf-gcc -march=rv64g -Os object_sample.c -c
-	riscv64-unknown-elf-objdump -d -t -r object_sample.o > object_sample.dmp
+test_object_sample: test_object_sample.c object_sample.myriscvx64.static.mod.o
+	riscv64-unknown-elf-gcc -march=rv64im -mabi=lp64 test_object_sample.c -c
+	riscv64-unknown-elf-ld -mabi=lp64 test_object_sample.o object_sample.myriscvx64.static.mod.o -o $@
 
 
 RISCV32 = ${HOME}/riscv32
@@ -28,14 +28,15 @@ RISCV64_LINUX = ${HOME}/riscv64-ctng-linux
 COMMON_OPTIONS =
 COMMON_OPTIONS += -debug
 COMMON_OPTIONS += -disable-tail-calls
+COMMON_OPTIONS += -code-model=medium
 
 include $(realpath ../common.mk ../../common.mk)
 
 define MAKEALL
 $(1) :  $(1).myriscvx32.static.S \
 		$(1).myriscvx64.static.S \
-		$(1).myriscvx32.pic.S \
-		$(1).myriscvx64.pic.S
+		$(1).myriscvx32.static.o \
+		$(1).myriscvx64.static.o
 
 $(eval $(call WHOLE_RULES,$(1)))
 endef
