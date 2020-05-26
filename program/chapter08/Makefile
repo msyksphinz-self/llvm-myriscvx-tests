@@ -28,15 +28,15 @@ RISCV64_LINUX = ${HOME}/riscv64-ctng-linux
 COMMON_OPTIONS =
 COMMON_OPTIONS += -debug
 COMMON_OPTIONS += -disable-tail-calls
-COMMON_OPTIONS += -code-model=medium
+# COMMON_OPTIONS += -code-model=medium
 
 include $(realpath ../common.mk ../../common.mk)
 
 define MAKEALL
 $(1) :  $(1).myriscvx32.static.S \
 		$(1).myriscvx64.static.S \
-		$(1).myriscvx32.static.o \
-		$(1).myriscvx64.static.o
+		$(1).myriscvx32.static.medany.o \
+		$(1).myriscvx64.static.medany.o
 
 $(eval $(call WHOLE_RULES,$(1)))
 endef
