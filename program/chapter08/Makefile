@@ -25,10 +25,10 @@ test_object_sample: test_object_sample.c object_sample.myriscvx64.static.mod.o
 	riscv64-unknown-elf-ld -mabi=lp64 test_object_sample.o object_sample.myriscvx64.static.mod.o -o $@
 
 pseudo_inst:
-	$(MC) -arch=myrsicvx32 -debug pesudo_inst.S -filetype=asm -o pesudo_inst.myriscvx32.static.mc.S > pseudo_inst.myriscvx32.static.mc.S.log
-	$(MC) -arch=myrsicvx64 -debug pesudo_inst.S -filetype=asm -o pesudo_inst.myriscvx64.static.mc.S > pseudo_inst.myriscvx64.static.mc.S.log
-	$(MC) -arch=myrsicvx32 -debug pesudo_inst.S -filetype=obj -o pesudo_inst.myriscvx32.static.mc.o > pseudo_inst.myriscvx32.static.mc.o.log
-	$(MC) -arch=myrsicvx64 -debug pesudo_inst.S -filetype=obj -o pesudo_inst.myriscvx64.static.mc.o > pseudo_inst.myriscvx64.static.mc.o.log
+	$(MC) -arch=myriscvx32 -debug pseudo_inst.S -filetype=asm -o pesudo_inst.myriscvx32.static.mc.S > pseudo_inst.myriscvx32.static.mc.S.log 2>&1
+	$(MC) -arch=myriscvx64 -debug pseudo_inst.S -filetype=asm -o pesudo_inst.myriscvx64.static.mc.S > pseudo_inst.myriscvx64.static.mc.S.log 2>&1
+	$(MC) -arch=myriscvx32 -debug pseudo_inst.S -filetype=obj -o pesudo_inst.myriscvx32.static.mc.o > pseudo_inst.myriscvx32.static.mc.o.log 2>&1
+	$(MC) -arch=myriscvx64 -debug pseudo_inst.S -filetype=obj -o pesudo_inst.myriscvx64.static.mc.o > pseudo_inst.myriscvx64.static.mc.o.log 2>&1
 
 
 RISCV32 = ${HOME}/riscv32
