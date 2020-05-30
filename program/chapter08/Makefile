@@ -1,4 +1,9 @@
-TARGET = fixup_branch object_test object_sample
+TARGET = fixup_branch \
+	object_test \
+	object_sample \
+	inline_assembly \
+	factorial
+
 ARCH = riscv32 myriscvx32
 
 .PHONY: all $(TARGET) object_sample
@@ -7,7 +12,7 @@ CLANG 	= ../../../llvm-myriscvx100/build/bin/clang
 LLC   	= ../../../llvm-myriscvx100/build/bin/llc
 DUMP  	= ../../../llvm-myriscvx100/build/bin/llvm-dis
 MC    	= ../../../llvm-myriscvx100/build/bin/llvm-mc
-OBJDUMP = ../../../llvm-myriscvx80/build/bin/llvm-objdump
+OBJDUMP = ../../../llvm-myriscvx100/build/bin/llvm-objdump
 
 # CLANG = ../../../llvm-myriscvx80/build/bin/clang
 # LLC   = ../../../llvm-myriscvx100/build/bin/llc
@@ -30,13 +35,23 @@ COMMON_OPTIONS += -debug
 COMMON_OPTIONS += -disable-tail-calls
 # COMMON_OPTIONS += -code-model=medium
 
+CLANG32_OPTIONS =
+# CLANG32_OPTIONS += -O1
+CLANG32_OPTIONS += --target=riscv32-unknown-elf
+
+CLANG64_OPTIONS =
+# CLANG64_OPTIONS += -O1
+CLANG64_OPTIONS += --target=riscv64-unknown-elf
+
 include $(realpath ../common.mk ../../common.mk)
 
 define MAKEALL
 $(1) :  $(1).myriscvx32.static.S \
 		$(1).myriscvx64.static.S \
 		$(1).myriscvx32.static.medany.o \
-		$(1).myriscvx64.static.medany.o
+		$(1).myriscvx64.static.medany.o \
+		$(1).myriscvx32.static.mc.o \
+		$(1).myriscvx64.static.mc.o
 
 $(eval $(call WHOLE_RULES,$(1)))
 endef

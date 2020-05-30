@@ -133,50 +133,15 @@ $(1).riscv64.static.bc: $(1).c Makefile
 	$(CLANG) $(CLANG64_OPTIONS) $(1).c -c -emit-llvm -o $(1).riscv64.static.bc
 	$(DUMP) $(1).riscv64.static.bc -o $(1).riscv64.static.bc.ll
 
-endef  # WHOLE_RULES
+$(1).myriscvx64.static.mc.o: $(1).myriscvx64.static.S Makefile
+	$(MC) --arch=myriscvx64 --debug $(1).myriscvx64.static.S -o $(1).myriscvx64.static.mc.o \
+		> $(1).myriscvx64.static.mc.o.log 2>&1
 
-# # %.riscv32.gcc: %.cpp Makefile
-# # 	riscv32-unknown-elf-gcc -O3 -fpic -c $< -o $@
-# # 	riscv32-unknown-elf-objdump -D $@ > $@.dmp
-#
-# %.riscv32.gcc: %.riscv32.S Makefile
-# 	PATH=$(RISCV32)/bin LD_LIBRARY_PATH=$(RISCV32)/lib riscv32-unknown-elf-gcc -O3 -fpic -c $< -o $@
-# 	PATH=$(RISCV32)/bin LD_LIBRARY_PATH=$(RISCV32)/lib riscv32-unknown-elf-objdump -D $@ > $@.dmp
-# %.riscv64.gcc: %.riscv64.S Makefile
-# 	PATH=$(RISCV64)/bin LD_LIBRARY_PATH=$(RISCV64)/lib riscv64-unknown-elf-gcc -O3 -fpic -c $< -o $@
-# 	PATH=$(RISCV64)/bin LD_LIBRARY_PATH=$(RISCV64)/lib riscv64-unknown-elf-objdump -D $@ > $@.dmp
-# %.myriscvx32.gcc: %.myriscvx32.S Makefile
-# 	PATH=$(RISCV32)/bin LD_LIBRARY_PATH=$(RISCV32)/lib riscv32-unknown-elf-gcc -O3 -fpic -c $< -o $@
-# 	PATH=$(RISCV32)/bin LD_LIBRARY_PATH=$(RISCV32)/lib riscv32-unknown-elf-objdump -D $@ > $@.dmp
-# %.myriscvx64.gcc: %.myriscvx64.S Makefile
-# 	PATH=$(RISCV64)/bin LD_LIBRARY_PATH=$(RISCV64)/lib riscv64-unknown-elf-gcc -O3 -fpic -c $< -o $@
-# 	PATH=$(RISCV64)/bin LD_LIBRARY_PATH=$(RISCV64)/lib riscv64-unknown-elf-objdump -D $@ > $@.dmp
-#
-# %.riscv32.S: %.bc Makefile
-# 	$(LLC) -march=riscv32  $(COMMON_OPTIONS) $< -o $@ 2>&1 | tee $@.riscv32.log
-# %.riscv64.S: %.bc Makefile
-# 	$(LLC) -march=riscv64 $(COMMON_OPTIONS) $< -o $@ 2>&1 | tee $@.riscv64.log
-# %.myriscvx32.S: %.bc Makefile
-# 	$(LLC) -march=myriscvx32 $(COMMON_OPTIONS) $< -o $@ 2>&1 | tee $@.myriscvx32.log
-# %.myriscvx64.S: %.bc Makefile
-# 	$(LLC) -march=myriscvx64 $(COMMON_OPTIONS) $< -o $@ 2>&1 | tee $@.myriscvx64.log
-# %.mips32.S: %.mips.bc Makefile
-# 	$(LLC) -march=mips32 $(COMMON_OPTIONS) $< -o $@ 2>&1 | tee $@.mips32.log
-# %.mips64.S: %.mips.bc Makefile
-# 	$(LLC) -march=mips64 $(COMMON_OPTIONS) $< -o $@ 2>&1 | tee $@.mips64.log
-# %.bc: %.cpp Makefile
-# 	$(CLANG) $(CLANG_OPTIONS) $< -c -target riscv64-unknown-elf -emit-llvm -o $@
-# 	$(DUMP) $@ -o $@.ll
-# %.bc: %.c Makefile
-# 	$(CLANG) $(CLANG_OPTIONS) $< -c -target riscv64-unknown-elf -emit-llvm -o $@
-# 	$(DUMP) $@ -o $@.ll
-#
-# %.mips.bc: %.cpp Makefile
-# 	$(CLANG) $(CLANG_OPTIONS) $< -c -target mips64-unknown-elf -emit-llvm -o $@
-# 	$(DUMP) $@ -o $@.ll
-# %.mips.bc: %.c Makefile
-# 	$(CLANG) $(CLANG_OPTIONS) $< -c -target mips64-unknown-elf -emit-llvm -o $@
-# 	$(DUMP) $@ -o $@.ll
+$(1).myriscvx32.static.mc.o: $(1).myriscvx32.static.S Makefile
+	$(MC) --arch=myriscvx32 --debug $(1).myriscvx32.static.S -o $(1).myriscvx32.static.mc.o \
+		> $(1).myriscvx32.static.mc.o.log 2>&1
+
+endef  # WHOLE_RULES
 
 dotbook:
 	../../../dot_book_wrapper.sh $(TARGET)
