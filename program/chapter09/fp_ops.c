@@ -1,27 +1,19 @@
-#include <cmath>
+#include <math.h>
 
-void test_fp_math(float *a, float *b, float *c)
+void test_fp_math(float *a, float *b, float *c, float *result)
 {
-  float res_add = *a + *b + *c;
-  float res_sub = *a - *b - *c;
-  float res_mul = *a * *b * *c;
-  float res_div = *a / *b / *c;
-
-  float res_fmad  = fmaf(*a, *b, *c);
-  float res_fsub  = *a * *b - *c;
-  float res_fnmsub = (-*a) * *b + *c;
-  float res_fnmadd = (-*a) * *b - *c;
+  float res_fmad  = *a * *b + *c;
+  float res_fsub  = *a * *c - res_fmad;
+  float res_fnmadd = (-*b) * *c + res_fsub;
+  float res_fnmsub = (-*a) * *c - res_fnmadd;
+  *result = res_fnmsub;
 }
 
-void test_dp_math(double *a, double *b, double *c)
+void test_dp_math(double *a, double *b, double *c, double *result)
 {
-  double res_add = *a + *b + *c;
-  double res_sub = *a - *b - *c;
-  double res_mul = *a * *b * *c;
-  double res_div = *a / *b / *c;
-
-  double res_fmad  = fma(*a, *b, *c);
-  // double res_fsub  = *a * *b - *c;
-  // double res_fnmsub = (-*a) * *b + *c;
-  // double res_fnmadd = (-*a) * *b - *c;
+  double res_fmad  = *a * *b + *c;
+  double res_fsub  = *a * *b - res_fmad;
+  double res_fnmadd = (-*b) * *c + res_fsub;
+  double res_fnmsub = (-*a) * *c - res_fnmadd;
+  *result = res_fnmsub;
 }
