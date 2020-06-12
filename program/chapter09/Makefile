@@ -3,7 +3,8 @@ TARGET = fp_mem \
 	fp_ops \
 	fp_args \
 	fp_cmp \
-	fp_others
+	fp_others \
+	fp_constant
 ARCH = riscv32 myriscvx32
 
 .PHONY: all $(TARGET)
@@ -26,11 +27,11 @@ COMMON_OPTIONS += -disable-tail-calls
 
 CLANG32_OPTIONS =
 CLANG32_OPTIONS += -O3
-# CLANG32_OPTIONS += --target=riscv32-unknown-elf
+CLANG32_OPTIONS += --target=riscv32-unknown-elf
 
 CLANG64_OPTIONS =
 CLANG64_OPTIONS += -O3
-# CLANG64_OPTIONS += --target=riscv64-unknown-elf
+CLANG64_OPTIONS += --target=riscv64-unknown-elf
 
 include $(realpath ../common.mk ../../common.mk)
 

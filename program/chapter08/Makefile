@@ -2,6 +2,7 @@ TARGET = fixup_branch \
 	object_test \
 	object_sample \
 	inline_assembly \
+	inline_csr \
 	factorial \
 
 ARCH = riscv32 myriscvx32
