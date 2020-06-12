@@ -14,7 +14,7 @@ int main() {
     for (b = C0i-VS; b < C0i+VS; b += 2.0*VS/STEP) {
       printf("%1.14e %1.14e %1.14e\n", a, b, mandelbrot(a, b));
     }
-    printf("\n"); // これがないとgnuplotでエラーが出る
+    printf("\n");
   }
   return 0;
 }
