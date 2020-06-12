@@ -9,10 +9,10 @@ ARCH = riscv32 myriscvx32
 
 .PHONY: all $(TARGET)
 
-CLANG = ../../../llvm-myriscvx100/build/bin/clang
-LLC   = ../../../llvm-myriscvx100/build/bin/llc
-DUMP  = ../../../llvm-myriscvx100/build/bin/llvm-dis
-MC    = ../../../llvm-myriscvx100/build/bin/llvm-mc
+CLANG 	= ../../../llvm-myriscvx100/build/bin/clang
+LLC   	= ../../../llvm-myriscvx100/build/bin/llc
+DUMP  	= ../../../llvm-myriscvx100/build/bin/llvm-dis
+MC    	= ../../../llvm-myriscvx100/build/bin/llvm-mc
 OBJDUMP = ../../../llvm-myriscvx100/build/bin/llvm-objdump
 
 RISCV32 = ${HOME}/riscv32
@@ -26,13 +26,14 @@ COMMON_OPTIONS += -disable-tail-calls
 # COMMON_OPTIONS += -code-model=medium
 
 CLANG32_OPTIONS =
-CLANG32_OPTIONS += -O3
-CLANG32_OPTIONS += --target=riscv32-unknown-elf
+# CLANG32_OPTIONS += -O3
+# CLANG32_OPTIONS += --target=riscv32-unknown-elf
 
 CLANG64_OPTIONS =
 CLANG64_OPTIONS += -O3
 CLANG64_OPTIONS += --target=riscv64-unknown-elf
-
+# CLANG64_OPTIONS += -O1
+# CLANG64_OPTIONS += --target=riscv64-unknown-elf
 include $(realpath ../common.mk ../../common.mk)
 
 define MAKEALL
