@@ -18,3 +18,5 @@ float  cvt_sint_to_fp (int32_t  in) { return (float )(in); }
 float  cvt_uint_to_fp (uint32_t in) { return (float )(in); }
 double cvt_sint_to_dp (int32_t  in) { return (double)(in); }
 double cvt_uint_to_dp (uint32_t in) { return (double)(in); }
+
+float f_sqrt(float k) { return sqrt(k); }

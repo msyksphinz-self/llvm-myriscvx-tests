@@ -27,7 +27,7 @@ COMMON_OPTIONS += -disable-tail-calls
 # COMMON_OPTIONS += -code-model=medium
 
 CLANG32_OPTIONS =
-# CLANG32_OPTIONS += -O3
+CLANG32_OPTIONS += -O3
 # CLANG32_OPTIONS += --target=riscv32-unknown-elf
 
 CLANG64_OPTIONS =
