@@ -31,7 +31,7 @@ TARGET=raytracer
 
 .PHONY: mandelbrot_llvm
 
-all: $(TARGET).riscv $(TARGET).llvm.riscv
+all: $(TARGET) $(TARGET).riscv $(TARGET).llvm.riscv
 
 $(TARGET).riscv: $(TARGET).cpp  # syscalls.c crt.S
 	riscv64-unknown-elf-g++ -o $@ $^ $(CFLAGS)

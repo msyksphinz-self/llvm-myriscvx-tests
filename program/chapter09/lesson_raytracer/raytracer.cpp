@@ -239,14 +239,22 @@ void render(const std::vector<Sphere> &spheres)
         }
     }
     // Save result to a PPM image (keep these flags if you compile under Windows)
-    std::ofstream ofs("./untitled.ppm", std::ios::out | std::ios::binary);
-    ofs << "P6\n" << width << " " << height << "\n255\n";
+    // FILE *fs = fopen("./untitled.ppm", "w");
+    printf("P3\n%d %d\n255\n", width, height);
     for (unsigned i = 0; i < width * height; ++i) {
-        ofs << (unsigned char)(std::min(float(1), image[i].x) * 255) <<
-               (unsigned char)(std::min(float(1), image[i].y) * 255) <<
-               (unsigned char)(std::min(float(1), image[i].z) * 255);
+      printf("%d %d %d ", (unsigned char)(std::min(float(1), image[i].x) * 255),
+             (unsigned char)(std::min(float(1), image[i].y) * 255),
+             (unsigned char)(std::min(float(1), image[i].z) * 255));
     }
-    ofs.close();
+
+    // std::ofstream ofs("./untitled.ppm", std::ios::out | std::ios::binary);
+    // ofs << "P6\n" << width << " " << height << "\n255\n";
+    // for (unsigned i = 0; i < width * height; ++i) {
+    //     ofs << (unsigned char)(std::min(float(1), image[i].x) * 255) <<
+    //            (unsigned char)(std::min(float(1), image[i].y) * 255) <<
+    //            (unsigned char)(std::min(float(1), image[i].z) * 255);
+    // }
+    // ofs.close();
     delete [] image;
 }
 
