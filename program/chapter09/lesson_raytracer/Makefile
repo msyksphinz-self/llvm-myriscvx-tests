@@ -36,7 +36,7 @@ all: $(TARGET).riscv $(TARGET).llvm.riscv
 $(TARGET).riscv: $(TARGET).cpp  # syscalls.c crt.S
 	riscv64-unknown-elf-g++ -o $@ $^ $(CFLAGS)
 
-$(TARGET).llvm.riscv: $(TARGET).myriscvx64.static.S $(TARGET)_main.riscv.o # syscalls.c crt.S
+$(TARGET).llvm.riscv: $(TARGET).myriscvx64.static.S # syscalls.c crt.S
 	riscv64-unknown-elf-g++ -o $@ $^ $(CFLAGS)
 
 $(TARGET)_llvm: $(TARGET).myriscvx64.static.medany.S $(TARGET)_main.myriscvx64.static.medany.S

@@ -102,7 +102,7 @@ public:
         float thc = sqrt(radius2 - d2);
         t0 = tca - thc;
         t1 = tca + thc;
-        
+
         return true;
     }
 };
@@ -127,11 +127,12 @@ float mix(const float &a, const float &b, const float &mix)
 // is the color of the object at the intersection point, otherwise it returns
 // the background color.
 //[/comment]
-Vec3f trace(
+void trace(
     const Vec3f &rayorig,
     const Vec3f &raydir,
     const std::vector<Sphere> &spheres,
-    const int &depth)
+    const int &depth,
+    Vec3f *ret_vec3f)
 {
     //if (raydir.length() != 1) std::cerr << "Error " << raydir << std::endl;
     float tnear = INFINITY;
@@ -148,7 +149,10 @@ Vec3f trace(
         }
     }
     // if there's no intersection return black or background color
-    if (!sphere) return Vec3f(2);
+    if (!sphere) {
+      *ret_vec3f = Vec3f(2);
+      return;
+    }
     Vec3f surfaceColor = 0; // color of the ray/surfaceof the object intersected by the ray
     Vec3f phit = rayorig + raydir * tnear; // point of intersection
     Vec3f nhit = phit - sphere->center; // normal at the intersection point
@@ -168,7 +172,8 @@ Vec3f trace(
         // are already normalized)
         Vec3f refldir = raydir - nhit * 2 * raydir.dot(nhit);
         refldir.normalize();
-        Vec3f reflection = trace(phit + nhit * bias, refldir, spheres, depth + 1);
+        Vec3f reflection;
+        trace(phit + nhit * bias, refldir, spheres, depth + 1, &reflection);
         Vec3f refraction = 0;
         // if the sphere is also transparent compute refraction ray (transmission)
         if (sphere->transparency) {
@@ -177,7 +182,7 @@ Vec3f trace(
             float k = 1 - eta * eta * (1 - cosi * cosi);
             Vec3f refrdir = raydir * eta + nhit * (eta *  cosi - sqrt(k));
             refrdir.normalize();
-            refraction = trace(phit - nhit * bias, refrdir, spheres, depth + 1);
+            trace(phit - nhit * bias, refrdir, spheres, depth + 1, &refraction);
         }
         // the result is a mix of reflection and refraction (if the sphere is transparent)
         surfaceColor = (
@@ -206,8 +211,9 @@ Vec3f trace(
             }
         }
     }
-    
-    return surfaceColor + sphere->emissionColor;
+
+    *ret_vec3f = surfaceColor + sphere->emissionColor;
+    return;
 }
 
 //[comment]
@@ -229,7 +235,7 @@ void render(const std::vector<Sphere> &spheres)
             float yy = (1 - 2 * ((y + 0.5) * invHeight)) * angle;
             Vec3f raydir(xx, yy, -1);
             raydir.normalize();
-            *pixel = trace(Vec3f(0), raydir, spheres, 0);
+            trace(Vec3f(0), raydir, spheres, 0, pixel);
         }
     }
     // Save result to a PPM image (keep these flags if you compile under Windows)
@@ -262,6 +268,6 @@ int main(int argc, char **argv)
     // light
     spheres.push_back(Sphere(Vec3f( 0.0,     20, -30),     3, Vec3f(0.00, 0.00, 0.00), 0, 0.0, Vec3f(3)));
     render(spheres);
-    
+
     return 0;
 }

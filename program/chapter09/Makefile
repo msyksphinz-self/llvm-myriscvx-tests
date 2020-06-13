@@ -4,7 +4,8 @@ TARGET = fp_mem \
 	fp_args \
 	fp_cmp \
 	fp_others \
-	fp_constant
+	fp_constant \
+	fp_sqrt
 ARCH = riscv32 myriscvx32
 
 .PHONY: all $(TARGET)
