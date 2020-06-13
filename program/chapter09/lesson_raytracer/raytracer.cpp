@@ -241,10 +241,14 @@ void render(const std::vector<Sphere> &spheres)
     // Save result to a PPM image (keep these flags if you compile under Windows)
     // FILE *fs = fopen("./untitled.ppm", "w");
     printf("P3\n%d %d\n255\n", width, height);
-    for (unsigned i = 0; i < width * height; ++i) {
-      printf("%d %d %d ", (unsigned char)(std::min(float(1), image[i].x) * 255),
-             (unsigned char)(std::min(float(1), image[i].y) * 255),
-             (unsigned char)(std::min(float(1), image[i].z) * 255));
+    for (unsigned j = 0; j < height; ++j) {
+      for (unsigned i = 0; i < width; ++i) {
+        unsigned index = j * width + i;
+        printf("%d %d %d ", (unsigned char)(std::min(float(1), image[index].x) * 255),
+               (unsigned char)(std::min(float(1), image[index].y) * 255),
+               (unsigned char)(std::min(float(1), image[index].z) * 255));
+      }
+      printf("\n");
     }
 
     // std::ofstream ofs("./untitled.ppm", std::ios::out | std::ios::binary);
