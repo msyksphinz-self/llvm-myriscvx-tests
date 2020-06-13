@@ -32,8 +32,8 @@
 // "Compiled for Linux
 #else
 // Windows doesn't define these values by default, Linux does
-#define M_PI 3.141592653589793
-#define INFINITY 1e8
+#define M_PI 3.141592653589793f
+#define INFINITY 1e8f
 #endif
 
 template<typename T>
@@ -48,7 +48,7 @@ public:
     {
         T nor2 = length2();
         if (nor2 > 0) {
-            T invNor = 1 / sqrt(nor2);
+            T invNor = 1.0f / sqrtf(nor2);
             x *= invNor, y *= invNor, z *= invNor;
         }
         return *this;
@@ -62,7 +62,7 @@ public:
     Vec3<T>& operator *= (const Vec3<T> &v) { x *= v.x, y *= v.y, z *= v.z; return *this; }
     Vec3<T> operator - () const { return Vec3<T>(-x, -y, -z); }
     T length2() const { return x * x + y * y + z * z; }
-    T length() const { return sqrt(length2()); }
+    T length() const { return sqrtf(length2()); }
     friend std::ostream & operator << (std::ostream &os, const Vec3<T> &v)
     {
         os << "[" << v.x << " " << v.y << " " << v.z << "]";
@@ -83,8 +83,8 @@ public:
         const Vec3f &c,
         const float &r,
         const Vec3f &sc,
-        const float &refl = 0,
-        const float &transp = 0,
+        const float &refl = 0.0f,
+        const float &transp = 0.0f,
         const Vec3f &ec = 0) :
         center(c), radius(r), radius2(r * r), surfaceColor(sc), emissionColor(ec),
         transparency(transp), reflection(refl)
@@ -99,7 +99,7 @@ public:
         if (tca < 0) return false;
         float d2 = l.dot(l) - tca * tca;
         if (d2 > radius2) return false;
-        float thc = sqrt(radius2 - d2);
+        float thc = sqrtf(radius2 - d2);
         t0 = tca - thc;
         t1 = tca + thc;
 
@@ -114,7 +114,7 @@ public:
 
 float mix(const float &a, const float &b, const float &mix)
 {
-    return b * mix + a * (1 - mix);
+    return b * mix + a * (1.0f - mix);
 }
 
 //[comment]
@@ -167,7 +167,7 @@ void trace(
     if ((sphere->transparency > 0 || sphere->reflection > 0) && depth < MAX_RAY_DEPTH) {
         float facingratio = -raydir.dot(nhit);
         // change the mix value to tweak the effect
-        float fresneleffect = mix(pow(1 - facingratio, 3), 1, 0.1);
+        float fresneleffect = mix(powf(1 - facingratio, 3), 1, 0.1f);
         // compute reflection direction (not need to normalize because all vectors
         // are already normalized)
         Vec3f refldir = raydir - nhit * 2 * raydir.dot(nhit);
@@ -177,10 +177,10 @@ void trace(
         Vec3f refraction = 0;
         // if the sphere is also transparent compute refraction ray (transmission)
         if (sphere->transparency) {
-            float ior = 1.1, eta = (inside) ? ior : 1 / ior; // are we inside or outside the surface?
+            float ior = 1.1, eta = (inside) ? ior : 1.0f / ior; // are we inside or outside the surface?
             float cosi = -nhit.dot(raydir);
-            float k = 1 - eta * eta * (1 - cosi * cosi);
-            Vec3f refrdir = raydir * eta + nhit * (eta *  cosi - sqrt(k));
+            float k = 1.0f - eta * eta * (1.0f - cosi * cosi);
+            Vec3f refrdir = raydir * eta + nhit * (eta *  cosi - sqrtf(k));
             refrdir.normalize();
             trace(phit - nhit * bias, refrdir, spheres, depth + 1, &refraction);
         }
@@ -225,14 +225,14 @@ void render(const std::vector<Sphere> &spheres)
 {
     unsigned width = 640, height = 480;
     Vec3f *image = new Vec3f[width * height], *pixel = image;
-    float invWidth = 1 / float(width), invHeight = 1 / float(height);
+    float invWidth = 1.0f / float(width), invHeight = 1.0f / float(height);
     float fov = 30, aspectratio = width / float(height);
-    float angle = tan(M_PI * 0.5 * fov / 180.);
+    float angle = tanf(M_PI * 0.5f * fov / 180.0f);
     // Trace rays
     for (unsigned y = 0; y < height; ++y) {
         for (unsigned x = 0; x < width; ++x, ++pixel) {
-            float xx = (2 * ((x + 0.5) * invWidth) - 1) * angle * aspectratio;
-            float yy = (1 - 2 * ((y + 0.5) * invHeight)) * angle;
+            float xx = (2 * ((x + 0.5f) * invWidth) - 1) * angle * aspectratio;
+            float yy = (1 - 2 * ((y + 0.5f) * invHeight)) * angle;
             Vec3f raydir(xx, yy, -1);
             raydir.normalize();
             trace(Vec3f(0), raydir, spheres, 0, pixel);
@@ -268,13 +268,13 @@ int main(int argc, char **argv)
     srand48(13);
     std::vector<Sphere> spheres;
     // position, radius, surface color, reflectivity, transparency, emission color
-    spheres.push_back(Sphere(Vec3f( 0.0, -10004, -20), 10000, Vec3f(0.20, 0.20, 0.20), 0, 0.0));
-    spheres.push_back(Sphere(Vec3f( 0.0,      0, -20),     4, Vec3f(1.00, 0.32, 0.36), 1, 0.5));
-    spheres.push_back(Sphere(Vec3f( 5.0,     -1, -15),     2, Vec3f(0.90, 0.76, 0.46), 1, 0.0));
-    spheres.push_back(Sphere(Vec3f( 5.0,      0, -25),     3, Vec3f(0.65, 0.77, 0.97), 1, 0.0));
-    spheres.push_back(Sphere(Vec3f(-5.5,      0, -15),     3, Vec3f(0.90, 0.90, 0.90), 1, 0.0));
+    spheres.push_back(Sphere(Vec3f( 0.0f, -10004, -20), 10000, Vec3f(0.20f, 0.20f, 0.20f), 0, 0.0f));
+    spheres.push_back(Sphere(Vec3f( 0.0f,      0, -20),     4, Vec3f(1.00f, 0.32f, 0.36f), 1, 0.5f));
+    spheres.push_back(Sphere(Vec3f( 5.0f,     -1, -15),     2, Vec3f(0.90f, 0.76f, 0.46f), 1, 0.0f));
+    spheres.push_back(Sphere(Vec3f( 5.0f,      0, -25),     3, Vec3f(0.65f, 0.77f, 0.97f), 1, 0.0f));
+    spheres.push_back(Sphere(Vec3f(-5.5f,      0, -15),     3, Vec3f(0.90f, 0.90f, 0.90f), 1, 0.0f));
     // light
-    spheres.push_back(Sphere(Vec3f( 0.0,     20, -30),     3, Vec3f(0.00, 0.00, 0.00), 0, 0.0, Vec3f(3)));
+    spheres.push_back(Sphere(Vec3f( 0.0f,     20, -30),     3, Vec3f(0.00f, 0.00f, 0.00f), 0, 0.0f, Vec3f(3)));
     render(spheres);
 
     return 0;

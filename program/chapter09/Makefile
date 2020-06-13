@@ -32,7 +32,6 @@ CLANG32_OPTIONS =
 
 CLANG64_OPTIONS =
 CLANG64_OPTIONS += -O3
-CLANG64_OPTIONS += --target=riscv64-unknown-elf
 # CLANG64_OPTIONS += -O1
 # CLANG64_OPTIONS += --target=riscv64-unknown-elf
 include $(realpath ../common.mk ../../common.mk)
