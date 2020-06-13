@@ -2,7 +2,6 @@
 
 #define NMAX (20000)
 
-
 double mandelbrot(double a, double b)
 {
   double x = 0.0;

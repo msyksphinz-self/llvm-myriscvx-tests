@@ -3,7 +3,7 @@
 #define C0r (-0.743)
 #define C0i (0.1145)
 #define VS  0.003
-#define STEP (100.0)
+#define STEP (400.0)
 
 extern double mandelbrot(double a, double b);
 
