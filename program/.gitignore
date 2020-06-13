@@ -7,3 +7,4 @@
 !chapter08/pseudo_inst.S
 *.o
 *.dmp
+*.riscv
