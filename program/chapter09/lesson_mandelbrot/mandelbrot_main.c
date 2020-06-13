@@ -3,7 +3,7 @@
 #define C0r (-0.743)
 #define C0i (0.1145)
 #define VS  0.003
-#define STEP (800.0)
+#define STEP (100.0)
 
 extern double mandelbrot(double a, double b);
 
@@ -16,5 +16,6 @@ int main() {
     }
     printf("\n");
   }
+
   return 0;
 }
