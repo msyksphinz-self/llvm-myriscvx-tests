@@ -13,11 +13,11 @@ CFLAGS += -lm
 CFLAGS += -lgcc
 # CFLAGS += -T ./link.ld
 
-CLANG 	= ../../../../llvm-myriscvx100/build/bin/clang
-LLC   	= ../../../../llvm-myriscvx100/build/bin/llc
-DUMP  	= ../../../../llvm-myriscvx100/build/bin/llvm-dis
-MC    	= ../../../../llvm-myriscvx100/build/bin/llvm-mc
-OBJDUMP = ../../../../llvm-myriscvx100/build/bin/llvm-objdump
+CLANG 	= ../../../../llvm-myriscvx100-1st/build/bin/clang
+LLC   	= ../../../../llvm-myriscvx100-1st/build/bin/llc
+DUMP  	= ../../../../llvm-myriscvx100-1st/build/bin/llvm-dis
+MC    	= ../../../../llvm-myriscvx100-1st/build/bin/llvm-mc
+OBJDUMP = ../../../../llvm-myriscvx100-1st/build/bin/llvm-objdump
 
 COMMON_OPTIONS =
 COMMON_OPTIONS += -debug
@@ -32,6 +32,7 @@ TARGET=raytracer
 .PHONY: mandelbrot_llvm
 
 all: $(TARGET) $(TARGET).riscv $(TARGET).llvm.riscv
+	spike pk $(TARGET).llvm.riscv > $(TARGET).llvm.riscv.ppm
 
 $(TARGET).riscv: $(TARGET).cpp  # syscalls.c crt.S
 	riscv64-unknown-elf-g++ -o $@ $^ $(CFLAGS)

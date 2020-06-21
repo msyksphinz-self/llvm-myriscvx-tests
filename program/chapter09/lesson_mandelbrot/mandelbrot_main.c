@@ -1,20 +1,26 @@
 #include <stdio.h>
+#include "mandelbrot.h"
 
-#define C0r (-0.743)
-#define C0i (0.1145)
-#define VS  0.003
-#define STEP (400.0)
-
-extern double mandelbrot(double a, double b);
+#define SCALE (1000)
 
 int main() {
-  double a, b;
+  const int width = 640, height = 480;
+  // const int width = 320, height = 240;
+  // const int width = 160, height = 120;
+  double rstart = -0.32, rstop = 0.32;
+  double istart = -0.24, istop = 0.24;
+  printf("P2\n%d %d\n%d\n", width, height, (int)(log(NMAX) * SCALE));
 
-  for (a = C0r-VS; a < C0r+VS; a += 2.0*VS/STEP) {
-    for (b = C0i-VS; b < C0i+VS; b += 2.0*VS/STEP) {
-      printf("%1.14e %1.14e %1.14e\n", a, b, mandelbrot(a, b));
+  for (int y = 0; y < height; y++) {
+    double y_target = y * (istop - istart) / height;
+    for (int x = 0; x < width; x++) {
+      double x_target = x * (rstop - rstart) / width;
+      double ret_r, ret_i;
+      double color = mandelbrot(x_target, y_target, &ret_r, &ret_i);
+      int int_color = (int)(color * SCALE);
+
+      printf("%d\n", int_color);
     }
-    printf("\n");
   }
 
   return 0;

@@ -8,3 +8,5 @@
 *.o
 *.dmp
 *.riscv
+*.ppm
+*.pgm

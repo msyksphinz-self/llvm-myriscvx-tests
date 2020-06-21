@@ -13,11 +13,11 @@ CFLAGS += -lm
 CFLAGS += -lgcc
 # CFLAGS += -T ./link.ld
 
-CLANG 	= ../../../../llvm-myriscvx100/build/bin/clang
-LLC   	= ../../../../llvm-myriscvx100/build/bin/llc
-DUMP  	= ../../../../llvm-myriscvx100/build/bin/llvm-dis
-MC    	= ../../../../llvm-myriscvx100/build/bin/llvm-mc
-OBJDUMP = ../../../../llvm-myriscvx100/build/bin/llvm-objdump
+CLANG 	= ../../../../llvm-myriscvx100-1st/build/bin/clang
+LLC   	= ../../../../llvm-myriscvx100-1st/build/bin/llc
+DUMP  	= ../../../../llvm-myriscvx100-1st/build/bin/llvm-dis
+MC    	= ../../../../llvm-myriscvx100-1st/build/bin/llvm-mc
+OBJDUMP = ../../../../llvm-myriscvx100-1st/build/bin/llvm-objdump
 
 COMMON_OPTIONS =
 COMMON_OPTIONS += -debug
@@ -27,17 +27,21 @@ CLANG64_OPTIONS =
 CLANG64_OPTIONS += -O3
 CLANG64_OPTIONS += --target=riscv64-unknown-elf
 
-.PHONY: mandelbrot_riscv_run mandelbrot_llvm_run
+.PHONY: mandelbrot_riscv_run mandelbrot_llvm_run mandelbrot_x86_run
 
-all: mandelbrot_riscv_run mandelbrot_llvm_run
+all: mandelbrot_riscv_run mandelbrot_llvm_run mandelbrot_x86_run
+
+mandelbrot_x86_run: mandelbrot.x86
+	./$^ > mandelbrot_x86.pgm
+
+mandelbrot.x86: mandelbrot.c mandelbrot_main.c
+	gcc $^ -lm -o $@
 
 mandelbrot_riscv_run: mandelbrot.riscv
-	spike pk $^ > data.txt
-	gnuplot png.gnuplot
+	spike pk $^ > mandelbrot_riscv.pgm
 
 mandelbrot_llvm_run: mandelbrot.llvm.riscv
-	spike pk $^ > data.txt
-	gnuplot png.gnuplot
+	spike pk $^ > mandelbrot_myriscvx.pgm
 
 mandelbrot.riscv: mandelbrot.c mandelbrot_main.c # syscalls.c crt.S
 	riscv64-unknown-elf-gcc -o $@ $^ $(CFLAGS)
