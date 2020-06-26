@@ -11,6 +11,9 @@ TARGET = \
 	100_return \
 	simple_pattern_match
 
+.PHONY: $(TARGET)
+all: $(TARGET)
+
 RISCV32 = ${HOME}/riscv32
 RISCV64 = ${HOME}/riscv64
 

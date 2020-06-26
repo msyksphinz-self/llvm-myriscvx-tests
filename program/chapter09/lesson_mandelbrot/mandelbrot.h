@@ -1,3 +1,3 @@
-#define NMAX (20000)
+#define NMAX (1000)
 
-extern double mandelbrot(double a, double b, double *ret_r, double *ret_i);
+extern double mandelbrot(double a, double b);
