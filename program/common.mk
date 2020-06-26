@@ -147,4 +147,4 @@ dotbook:
 	../../../dot_book_wrapper.sh $(TARGET)
 
 clean:
-	$(RM) *.gcc *.bc *.riscv*.S *.myriscvx*.S *.bc.ll *.log *.dump *.dmp *.o *.riscv *.gcc
+	$(RM) *.gcc *.bc *.riscv*.S *.myriscvx*.S *.bc.ll *.log *.dump *.dmp *.o *.riscv *.gcc $(CLEAN)

@@ -26,6 +26,8 @@ test_$(TARGET)_gcc_rv64: test_$(TARGET).c $(TARGET).c $(TARGET).h
 test_$(TARGET)_gcc_rv32: test_$(TARGET).c $(TARGET).c $(TARGET).h
 	PATH=$(RISCV32)/bin LD_LIBRARY_PATH=$(RISCV32)/lib riscv32-unknown-elf-gcc -O2 $^ -o $@
 
+CLEAN += test_$(TARGET)_rv64 test_$(TARGET)_rv32 test_$(TARGET)_gcc_rv32 test_$(TARGET)_gcc_rv64
+
 include $(realpath ../common.mk ../../common.mk)
 
 define MAKEALL
