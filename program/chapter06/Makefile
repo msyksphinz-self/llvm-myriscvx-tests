@@ -5,7 +5,6 @@ TARGET = \
 	int_array \
 	struct_char \
 	do_while_count \
-	if_ctrl \
 	select_exp \
 	simple_select_exp \
 	switch_table \

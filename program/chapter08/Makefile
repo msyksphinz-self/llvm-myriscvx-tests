@@ -5,9 +5,11 @@ TARGET = fixup_branch \
 	inline_csr \
 	factorial \
 
+.PHONY: all $(TARGET) object_sample
+
 ARCH = riscv32 myriscvx32
 
-.PHONY: all $(TARGET) object_sample
+all : $(TARGET)
 
 CLANG 	= ../../../llvm-myriscvx100/build/bin/clang
 LLC   	= ../../../llvm-myriscvx100/build/bin/llc
@@ -30,6 +32,10 @@ pseudo_inst:
 	$(MC) -arch=myriscvx64 -debug pseudo_inst.S -filetype=asm -o pseudo_inst.myriscvx64.static.mc.S > pseudo_inst.myriscvx64.static.mc.S.log 2>&1
 	$(MC) -arch=myriscvx32 -debug pseudo_inst.S -filetype=obj -o pseudo_inst.myriscvx32.static.mc.o > pseudo_inst.myriscvx32.static.mc.o.log 2>&1
 	$(MC) -arch=myriscvx64 -debug pseudo_inst.S -filetype=obj -o pseudo_inst.myriscvx64.static.mc.o > pseudo_inst.myriscvx64.static.mc.o.log 2>&1
+	$(MC) -arch=riscv32    -debug pseudo_inst.S -filetype=asm -o pseudo_inst.riscv32.static.mc.S 	> pseudo_inst.riscv32.static.mc.S.log 2>&1
+	$(MC) -arch=riscv64    -debug pseudo_inst.S -filetype=asm -o pseudo_inst.riscv64.static.mc.S 	> pseudo_inst.riscv64.static.mc.S.log 2>&1
+	$(MC) -arch=riscv32    -debug pseudo_inst.S -filetype=obj -o pseudo_inst.riscv32.static.mc.o 	> pseudo_inst.riscv32.static.mc.o.log 2>&1
+	$(MC) -arch=riscv64    -debug pseudo_inst.S -filetype=obj -o pseudo_inst.riscv64.static.mc.o 	> pseudo_inst.riscv64.static.mc.o.log 2>&1
 
 
 objdump_test:

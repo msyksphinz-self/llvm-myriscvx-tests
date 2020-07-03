@@ -16,30 +16,30 @@
 
 void printQueen(int queen[N]);
 
-void changeBoard(int board[N][N], int y, int x, int d)
+void update_board(int board[N][N], int y, int x, int d)
 {
   int k;
 
   for (k = 0; k < N; k++) {
-    board[y][k] += d;             /* 横方向 */
-    board[k][x] += d;             /* 縦方向 */
+    board[y][k] += d;
+    board[k][x] += d;
   }
   if (y > x) {
     for (k = 0; k < N-(y-x); k++) {
-      board[k+(y-x)][k] += d;   /* 右下がり斜め方向 (i > jのとき） */
+      board[k+(y-x)][k] += d;
     }
   } else {
     for (k = 0; k < N-(x-y); k++) {
-      board[k][k+(x-y)] += d;   /* 右下がり斜め方向 (i <= jのとき） */
+      board[k][k+(x-y)] += d;
     }
   }
   if (y+x < N) {
     for (k = 0; k <= x+y; k++) {
-      board[y+x-k][k] += d;     /* 左下がり斜め方向（i +j < Nのとき） */
+      board[y+x-k][k] += d;
     }
   } else {
     for (k = y+x-N+1; k < N; k++) {
-      board[y+x-k][k] += d;     /* 左下がり斜め方向（i+j >= Nのとき） */
+      board[y+x-k][k] += d;
     }
   }
 }
@@ -53,9 +53,9 @@ void setQueen(int queen[N], int board[N][N], int y)
       if (y == N-1) {
         printQueen(queen);
       } else {
-        changeBoard(board, y, x, +1);
+        update_board(board, y, x, +1);
         setQueen(queen, board, y+1);
-        changeBoard(board, y, x, -1);
+        update_board(board, y, x, -1);
       }
     }
   }
