@@ -13,11 +13,11 @@ CFLAGS += -lm
 CFLAGS += -lgcc
 # CFLAGS += -T ./link.ld
 
-CLANG 	= ../../../../llvm-myriscvx100/build/bin/clang
-LLC   	= ../../../../llvm-myriscvx100/build/bin/llc
-DUMP  	= ../../../../llvm-myriscvx100/build/bin/llvm-dis
-MC    	= ../../../../llvm-myriscvx100/build/bin/llvm-mc
-OBJDUMP = ../../../../llvm-myriscvx100/build/bin/llvm-objdump
+CLANG 	= ../../../../llvm-myriscvx100-2nd/build/bin/clang
+LLC   	= ../../../../llvm-myriscvx100-2nd/build/bin/llc
+DUMP  	= ../../../../llvm-myriscvx100-2nd/build/bin/llvm-dis
+MC    	= ../../../../llvm-myriscvx100-2nd/build/bin/llvm-mc
+OBJDUMP = ../../../../llvm-myriscvx100-2nd/build/bin/llvm-objdump
 
 COMMON_OPTIONS =
 COMMON_OPTIONS += -debug

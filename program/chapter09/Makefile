@@ -10,6 +10,8 @@ ARCH = riscv32 myriscvx32
 
 .PHONY: all $(TARGET)
 
+all: $(TARGET)
+
 CLANG 	= ../../../llvm-myriscvx100/build/bin/clang
 LLC   	= ../../../llvm-myriscvx100/build/bin/llc
 DUMP  	= ../../../llvm-myriscvx100/build/bin/llvm-dis
