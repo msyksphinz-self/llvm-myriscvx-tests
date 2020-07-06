@@ -24,8 +24,8 @@ OBJDUMP = ../../../llvm-myriscvx100/build/bin/llvm-objdump
 # OBJDUMP = ../../../llvm-myriscvx100/build/bin/llvm-objdump
 
 test_object_sample: test_object_sample.c object_sample.myriscvx64.static.mod.o
-	riscv64-unknown-elf-gcc -march=rv64im -mabi=lp64 test_object_sample.c -c
-	riscv64-unknown-elf-ld -mabi=lp64 test_object_sample.o object_sample.myriscvx64.static.mod.o -o $@
+	-PATH=$(RISCV64)/bin LD_LIBRARY_PATH=$(RISCV64)/lib riscv64-unknown-elf-gcc -march=rv64im -mabi=lp64 test_object_sample.c -c
+	-PATH=$(RISCV64)/bin LD_LIBRARY_PATH=$(RISCV64)/lib riscv64-unknown-elf-ld -mabi=lp64 test_object_sample.o object_sample.myriscvx64.static.mod.o -o $@
 
 pseudo_inst:
 	$(MC) -arch=myriscvx32 -debug pseudo_inst.S -filetype=asm -o pseudo_inst.myriscvx32.static.mc.S > pseudo_inst.myriscvx32.static.mc.S.log 2>&1
