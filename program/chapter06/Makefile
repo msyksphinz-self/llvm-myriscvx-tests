@@ -3,7 +3,7 @@ TARGET = \
 	global_variable \
 	local_pointer \
 	int_array \
-	struct_char \
+	struct_student \
 	do_while_count \
 	select_exp \
 	simple_select_exp \
@@ -18,6 +18,7 @@ all: $(TARGET)
 # CLANG_OPTIONS += -O3
 
 simple_select_exp_CLANG_OPTION = -O3
+struct_student_CLANG_OPTION = -O0
 
 include $(realpath ../common.mk ../../common.mk)
 
