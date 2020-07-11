@@ -29,6 +29,8 @@ CLANG64_OPTIONS =
 # CLANG64_OPTIONS += -O1
 CLANG64_OPTIONS += --target=riscv64-unknown-elf
 
+arithmetics_CLANG_OPTION = -O3
+
 include $(realpath ../common.mk ../../common.mk)
 
 define MAKEALL

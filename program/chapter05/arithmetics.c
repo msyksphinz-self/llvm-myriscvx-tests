@@ -1,24 +1,18 @@
-int test_math()
+void test_math(int a, int b, unsigned int ua)
 {
-  int a = 5;
-  int b = 2;
-  unsigned int a1 = -5;
-  int c, d, e, f, g, h, i;
-  unsigned int f1, g1, h1, i1;
+  (*(volatile          int *)0x100000) = a + b;    // ADD
+  (*(volatile          int *)0x100004) = a - b;    // SUB
+  (*(volatile          int *)0x100008) = a * b;    // MUL
+  (*(volatile          int *)0x10000c) = a << 10;  // SLLI
+  (*(volatile unsigned int *)0x100010) = ua << 11; // SLLI
+  (*(volatile          int *)0x100014) = a >> 2;   // SRAI
+  (*(volatile unsigned int *)0x100018) = ua >> 30; // SRLI
+  (*(volatile          int *)0x10001c) = a << b;   // SLL
+  (*(volatile          int *)0x100020) = a >> b;   // SRA
+  (*(volatile unsigned int *)0x100024) = ua << b;  // SLL
+  (*(volatile unsigned int *)0x100028) = ua >> b;  // SRL
 
-  c = a + b;      // c = 7
-  d = a - b;      // d = 3
-  e = a * b;      // e = 10
-  f = (a << 2);   // f = 20
-  f1 = (a1 << 1); // f1 = 0xfffffff6 = -10
-  g = (a >> 2);   // g = 1
-  g1 = (a1 >> 30); // g1 = 0x03 = 3
-  h = (1 << a);   // h = 0x20 = 32
-  h1 = (1 << b);  // h1 = 0x04
-  i = (0x80 >> a); // i = 0x04
-  i1 = (b >> a);  // i1 = 0x0
-
-  return 0;
+  return;
 }
 
 
