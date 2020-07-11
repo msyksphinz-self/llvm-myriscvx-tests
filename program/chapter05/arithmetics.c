@@ -1,20 +1,28 @@
-void test_math(int a, int b, unsigned int ua)
-{
-  (*(volatile          int *)0x100000) = a + b;    // ADD
-  (*(volatile          int *)0x100004) = a - b;    // SUB
-  (*(volatile          int *)0x100008) = a * b;    // MUL
-  (*(volatile          int *)0x10000c) = a << 10;  // SLLI
-  (*(volatile unsigned int *)0x100010) = ua << 11; // SLLI
-  (*(volatile          int *)0x100014) = a >> 2;   // SRAI
-  (*(volatile unsigned int *)0x100018) = ua >> 30; // SRLI
-  (*(volatile          int *)0x10001c) = a << b;   // SLL
-  (*(volatile          int *)0x100020) = a >> b;   // SRA
-  (*(volatile unsigned int *)0x100024) = ua << b;  // SLL
-  (*(volatile unsigned int *)0x100028) = ua >> b;  // SRL
+#include <stdint.h>
 
-  return;
-}
+int32_t  add32           ( int32_t a,  int32_t b)  { return a + b;    }  // ADD
+int32_t  sub32           ( int32_t a,  int32_t b)  { return a - b;    }  // SUB
+int32_t  mul32           ( int32_t a,  int32_t b)  { return a * b;    }  // MUL
+int32_t  shift_left32    ( int32_t a)              { return a  << 10; } // SLLI
+uint32_t shift_left32u   (uint32_t ua)             { return ua << 11; } // SLLI
+int32_t  shift_right32   ( int32_t a)              { return a  >> 2;  } // SRAI
+uint32_t shift_right32u  (uint32_t ua)             { return ua >> 30; } // SRLI
+int32_t  shift_leftv32   ( int32_t a,  uint32_t b) { return a << b;   } // SLL
+int32_t  shift_rightv32  ( int32_t a,  uint32_t b) { return a >> b;   } // SRA
+uint32_t shift_leftv32u  (uint32_t ua, uint32_t b) { return ua << b;  } // SLL
+uint32_t shift_rightv32u (uint32_t ua, uint32_t b) { return ua >> b;  } // SRL
 
+int64_t  add64           ( int64_t a,  int64_t b)  { return a + b;    }  // ADD
+int64_t  sub64           ( int64_t a,  int64_t b)  { return a - b;    }  // SUB
+int64_t  mul64           ( int64_t a,  int64_t b)  { return a * b;    }  // MUL
+int64_t  shift_left64    ( int64_t a)              { return a  << 10; } // SLLI
+uint64_t shift_left64u   (uint64_t ua)             { return ua << 11; } // SLLI
+int64_t  shift_right64   ( int64_t a)              { return a  >> 2;  } // SRAI
+uint64_t shift_right64u  (uint64_t ua)             { return ua >> 30; } // SRLI
+int64_t  shift_leftv64   ( int64_t a,  uint64_t b) { return a << b;   } // SLL
+int64_t  shift_rightv64  ( int64_t a,  uint64_t b) { return a >> b;   } // SRA
+uint64_t shift_leftv64u  (uint64_t ua, uint64_t b) { return ua << b;  } // SLL
+uint64_t shift_rightv64u (uint64_t ua, uint64_t b) { return ua >> b;  } // SRL
 
 int long_value()
 {
