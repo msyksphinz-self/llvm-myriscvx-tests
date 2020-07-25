@@ -2,40 +2,29 @@ TARGET = merge_sort
 
 .PHONY: all test
 
-CLANG = ../../../../llvm-myriscvx100/build/bin/clang
-LLC   = ../../../../llvm-myriscvx100/build/bin/llc
-DUMP  = ../../../../llvm-myriscvx100/build/bin/llvm-dis
+CLANG64_OPTIONS =
+CLANG64_OPTIONS += -O3
+CLANG64_OPTIONS += --target=riscv64-unknown-elf
 
-
-CLANG_OPTIONS += -O3
-
-all: test test_$(TARGET).static.riscv
+all: test_$(TARGET).static.riscv
 
 test: $(TARGET).myriscvx32.static.medlow.S $(TARGET).myriscvx64.static.medlow.S \
 	$(TARGET).myriscvx32.static.medany.S $(TARGET).myriscvx32.static.medlow.S
 
 
-test_$(TARGET).static.riscv: test_$(TARGET).c $(TARGET).myriscvx64.static.medany.S crt.S syscalls.c
-	riscv64-unknown-elf-gcc -march=rv64g -DPREALLOCATE=1 -static -mcmodel=medany -std=gnu99 -O2 -ffast-math -fno-common -fno-builtin-printf -nostdlib -nostartfiles -lm -lgcc $^ -o $@ -T link.ld
-	riscv64-unknown-elf-objdump -D $@ > $@.dmp
+test_$(TARGET).static.riscv: test_$(TARGET).c $(TARGET).myriscvx64.static.medany.S
+	-PATH=$(RISCV64)/bin LD_LIBRARY_PATH=$(RISCV64)/lib riscv64-unknown-elf-gcc -march=rv64g $^ -o $@
+	-PATH=$(RISCV64)/bin LD_LIBRARY_PATH=$(RISCV64)/lib riscv64-unknown-elf-objdump -D $@ > $@.dmp
 
-$(TARGET).myriscvx32.static.medlow.S: $(TARGET).riscv.static.bc Makefile
-	-$(LLC) -march=myriscvx32	$(COMMON_OPTIONS) -relocation-model=static --code-model=medium -filetype=asm -o $(TARGET).myriscvx32.static.medlow.S $(TARGET).riscv.static.bc		> $(TARGET).myriscvx32.static.asm.log 2>&1
-$(TARGET).myriscvx64.static.medlow.S: $(TARGET).riscv.static.bc Makefile
-	-$(LLC) -march=myriscvx64	$(COMMON_OPTIONS) -relocation-model=static --code-model=medium -filetype=asm -o $(TARGET).myriscvx64.static.medlow.S $(TARGET).riscv.static.bc		> $(TARGET).myriscvx64.static.asm.log 2>&1
+include $(realpath ../common.mk ../../common.mk)
 
-$(TARGET).myriscvx32.static.medany.S: $(TARGET).riscv.static.bc Makefile
-	-$(LLC) -march=myriscvx32	$(COMMON_OPTIONS) -relocation-model=static --code-model=medium -filetype=asm -o $(TARGET).myriscvx32.static.medany.S $(TARGET).riscv.static.bc		> $(TARGET).myriscvx32.static.asm.log 2>&1
-$(TARGET).myriscvx64.static.medany.S: $(TARGET).riscv.static.bc Makefile
-	-$(LLC) -march=myriscvx64	$(COMMON_OPTIONS) -relocation-model=static --code-model=medium -filetype=asm -o $(TARGET).myriscvx64.static.medany.S $(TARGET).riscv.static.bc		> $(TARGET).myriscvx64.static.asm.log 2>&1
+define MAKEALL
+$(1) :  $(1).myriscvx32.static.S \
+		$(1).myriscvx64.static.S \
+		$(1).myriscvx32.pic.S \
+		$(1).myriscvx64.pic.S
 
-$(TARGET).riscv.static.bc: $(TARGET).c Makefile
-	$(CLANG) $(CLANG_OPTIONS) $(TARGET).c -c -target riscv64-unknown-elf -emit-llvm  -o $(TARGET).riscv.static.bc
-	$(DUMP) $(TARGET).riscv.static.bc -o $(TARGET).riscv.static.bc.ll
+$(eval $(call WHOLE_RULES,$(1)))
+endef
 
-$(TARGET).riscv.pic.bc: $(TARGET).c Makefile
-	$(CLANG) $(CLANG_OPTIONS) $(TARGET).c -c -fpic -target riscv64-unknown-elf -emit-llvm  -o $(TARGET).riscv.static.bc
-	$(DUMP) $(TARGET).riscv.static.bc -o $(TARGET).riscv.static.bc.ll
-
-
-include ../../common.mk
+$(foreach VAR,$(TARGET),$(eval $(call MAKEALL,$(VAR))))

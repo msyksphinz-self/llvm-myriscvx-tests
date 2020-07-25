@@ -5,6 +5,8 @@ TARGET = \
 	make_frame \
 	simple \
 	arithmetics \
+	arith_64bit \
+	arith_32bit \
 	compare_slt \
 	rotate_test \
 	csi_test \
@@ -22,12 +24,13 @@ COMMON_OPTIONS += -debug
 COMMON_OPTIONS += -disable-tail-calls
 
 CLANG32_OPTIONS =
-# CLANG32_OPTIONS += -O1
+CLANG32_OPTIONS += -O3
 CLANG32_OPTIONS += --target=riscv32-unknown-elf
 
 CLANG64_OPTIONS =
-# CLANG64_OPTIONS += -O1
+CLANG64_OPTIONS += -O3
 CLANG64_OPTIONS += --target=riscv64-unknown-elf
+CLANG64_OPTIONS += -DRV64
 
 arithmetics_CLANG_OPTION = -O3
 

@@ -38,12 +38,17 @@ pseudo_inst:
 	$(MC) -arch=riscv64    -debug pseudo_inst.S -filetype=obj -o pseudo_inst.riscv64.static.mc.o 	> pseudo_inst.riscv64.static.mc.o.log 2>&1
 
 
-objdump_test:
-	$(MC) -arch=myriscvx32 -debug objdump_test.S -filetype=obj -o objdump_test.myriscvx32.static.mc.o > objdump_test.myriscvx32.static.mc.o.log 2>&1
-	$(MC) -arch=myriscvx64 -debug objdump_test.S -filetype=obj -o objdump_test.myriscvx64.static.mc.o > objdump_test.myriscvx64.static.mc.o.log 2>&1
-	$(OBJDUMP) -triple=myriscvx32 -d objdump_test.myriscvx32.static.mc.o  > objdump_test.myriscvx32.static.mc.dmp 2>&1
-	$(OBJDUMP) -triple=myriscvx64 -d objdump_test.myriscvx64.static.mc.o  > objdump_test.myriscvx64.static.mc.dmp 2>&1
+objdump_test: objdump_test.S
+	$(MC) -arch=myriscvx32 -debug $^ -filetype=obj -o $@.myriscvx32.static.mc.o > $@.myriscvx32.static.mc.o.log 2>&1
+	$(MC) -arch=myriscvx64 -debug $^ -filetype=obj -o $@.myriscvx64.static.mc.o > $@.myriscvx64.static.mc.o.log 2>&1
+	$(OBJDUMP) -triple=myriscvx32 -d $@.myriscvx32.static.mc.o  > $@.myriscvx32.static.mc.dmp 2>&1
+	$(OBJDUMP) -triple=myriscvx64 -d $@.myriscvx64.static.mc.o  > $@.myriscvx64.static.mc.dmp 2>&1
 
+objdump_reloc: objdump_reloc.S
+	$(MC) -arch=myriscvx32 -debug $^ -filetype=obj -o $@.myriscvx32.static.mc.o > $@.myriscvx32.static.mc.o.log 2>&1
+	$(MC) -arch=myriscvx64 -debug $^ -filetype=obj -o $@.myriscvx64.static.mc.o > $@.myriscvx64.static.mc.o.log 2>&1
+	$(OBJDUMP) -triple=myriscvx32 -d $@.myriscvx32.static.mc.o  > $@.myriscvx32.static.mc.dmp 2>&1
+	$(OBJDUMP) -triple=myriscvx64 -d $@.myriscvx64.static.mc.o  > $@.myriscvx64.static.mc.dmp 2>&1
 
 RISCV32 = ${HOME}/riscv32
 RISCV64 = ${HOME}/riscv64

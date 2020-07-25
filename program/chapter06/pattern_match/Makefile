@@ -6,8 +6,8 @@ CLANG_OPTIONS += -O3
 
 all: test_pattern_match.riscv
 
-test_pattern_match.riscv: test_pattern_match.c pattern_match.myriscvx64.static.medany.S crt.S syscalls.c
-	riscv64-unknown-elf-gcc -march=rv64g -DPREALLOCATE=1 -mcmodel=medany -static -std=gnu99 -O2 -ffast-math -fno-common -fno-builtin-printf -nostdlib -nostartfiles -lm -lgcc $^ -o $@ -T link.ld
+test_pattern_match.riscv: test_pattern_match.c pattern_match.myriscvx64.static.medany.S
+	riscv64-unknown-elf-gcc -march=rv64g -O2 $^ -o $@
 	riscv64-unknown-elf-objdump -D $@ > $@.dmp
 
 pattern_match.myriscvx32.static.medlow.S: pattern_match.riscv.pic.bc Makefile

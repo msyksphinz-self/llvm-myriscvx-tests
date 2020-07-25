@@ -1,20 +1,16 @@
-extern int external_func(int a);
-extern int tail_call_func(int a, int b);
-extern int inc(int a);
+int tail_call_func(int a, int b) {
+  int total = external_func(a);
+  for (int i = a; i < b; i++) {
+    total += i;
+  }
+  return total;
+}
 
-// int tail_call_func(int a, int b) {
-//   int total = external_func(a);
-//   for (int i = a; i < b; i++) {
-//     total += i;
-//   }
-//   return total;
-// }
-//
-// int inc(int a)
-// {
-//   return a+1;
-// }
-//
+int inc(int a)
+{
+  return a+1;
+}
+
 int tail_call_main (int a, int b, int c, int d) {
   int e = inc(a) + inc(b);
   int f = inc(c) + inc(d);

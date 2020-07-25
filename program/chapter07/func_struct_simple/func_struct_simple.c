@@ -19,6 +19,7 @@ uint64_t func_S256 (struct S256 elem) {
 // @} func_struct_simple_func
 
 
+// @{ func_S256_caller
 int func_S256_caller()
 {
   struct S256 elem;
@@ -34,3 +35,4 @@ int func_S256_caller()
 
   return func_S256(elem);
 }
+// @} func_S256_caller

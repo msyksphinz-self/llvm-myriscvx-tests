@@ -1,4 +1,4 @@
-TARGET = func_struct_simple \
+TARGET = func_struct_call \
 	vararg \
 	tailcall \
 	factorial
@@ -12,6 +12,8 @@ TARGET = func_struct_simple \
 
 RISCV32 = ${HOME}/riscv32
 RISCV64 = ${HOME}/riscv64
+
+vararg_CLANG_OPTION = -O3
 
 CLANG32_OPTIONS =
 # CLANG32_OPTIONS += -O1
