@@ -29,7 +29,6 @@ RISCV32 = ${HOME}/riscv32
 RISCV64 = ${HOME}/riscv64
 
 COMMON_OPTIONS =
-COMMON_OPTIONS += -debug
 COMMON_OPTIONS += -disable-tail-calls
 
 CLANG32_OPTIONS =
