@@ -10,3 +10,4 @@
 *.riscv
 *.ppm
 *.pgm
+!chapter08/assembly_test.S
