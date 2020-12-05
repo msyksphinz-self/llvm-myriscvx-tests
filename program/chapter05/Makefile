@@ -41,6 +41,7 @@ CLANG64_OPTIONS += --target=riscv64-unknown-elf
 CLANG64_OPTIONS += -DRV64
 
 # arithmetics_CLANG_OPTION = -O3
+compare_slt_CLANG_OPTION = -O3
 rotate_test_CLANG_OPTION = -O3
 
 include $(realpath ../common.mk ../../common.mk)
