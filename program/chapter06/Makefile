@@ -14,6 +14,10 @@ TARGET = \
 .PHONY: $(TARGET)
 all: $(TARGET)
 
+COMMON_OPTIONS =
+COMMON_OPTIONS += -debug
+COMMON_OPTIONS += -disable-tail-calls
+
 # CLANG_OPTIONS =
 # CLANG_OPTIONS += -O3
 

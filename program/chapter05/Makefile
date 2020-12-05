@@ -1,4 +1,9 @@
 TARGET = \
+	simple_func \
+	value_return \
+	func_arg \
+	cond \
+	frame_offset \
 	zero_return \
 	constants \
 	mem_access \
@@ -11,7 +16,11 @@ TARGET = \
 	rotate_test \
 	csi_test \
 	100_return \
-	simple_pattern_match
+	shift_insts \
+	simple_pattern_match \
+	long_value \
+	minus_value
+
 
 .PHONY: $(TARGET)
 all: $(TARGET)
@@ -24,15 +33,16 @@ COMMON_OPTIONS += -debug
 COMMON_OPTIONS += -disable-tail-calls
 
 CLANG32_OPTIONS =
-CLANG32_OPTIONS += -O3
+# CLANG32_OPTIONS += -O3
 CLANG32_OPTIONS += --target=riscv32-unknown-elf
 
 CLANG64_OPTIONS =
-CLANG64_OPTIONS += -O3
+# CLANG64_OPTIONS += -O3
 CLANG64_OPTIONS += --target=riscv64-unknown-elf
 CLANG64_OPTIONS += -DRV64
 
-arithmetics_CLANG_OPTION = -O3
+# arithmetics_CLANG_OPTION = -O3
+rotate_test_CLANG_OPTION = -O3
 
 include $(realpath ../common.mk ../../common.mk)
 

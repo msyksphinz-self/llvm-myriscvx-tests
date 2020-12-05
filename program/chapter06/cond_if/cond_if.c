@@ -1,10 +1,10 @@
-int if_ctrl(int a, int b)
+int if_ctrl(int a, int b, int c, int d)
 {
   int ret;
   if (a < b) {
- 	ret = 1;
+ 	ret = c;
   } else {
-    ret = 2;
+    ret = d;
   }
   return ret;
 }
