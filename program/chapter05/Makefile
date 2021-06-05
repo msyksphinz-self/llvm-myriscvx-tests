@@ -8,7 +8,7 @@ TARGET = \
 	constants \
 	mem_access \
 	make_frame \
-	simple \
+	add_int32 \
 	arithmetics \
 	arith_64bit \
 	arith_32bit \
