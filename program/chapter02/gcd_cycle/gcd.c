@@ -18,18 +18,18 @@ int main ()
   int gcd_val;
   int mstart_cycle, mstop_cycle;
 
-  asm volatile ("csrr %0, cycle": "=r"(mstart_cycle));
+  asm volatile ("rdcycle %0": "=r"(mstart_cycle));
   gcd_val = gcd(273, 21);
-  asm volatile ("csrr %0, cycle": "=r"(mstop_cycle));
+  asm volatile ("rdcycle %0": "=r"(mstop_cycle));
 
   printf ("GCD(273, 21) = %d\n", gcd_val);
   printf ("start = %d, stop = %d, diff = %d\n",
           mstart_cycle, mstop_cycle, mstop_cycle - mstart_cycle);
 
 
-  asm volatile ("csrr %0, cycle": "=r"(mstart_cycle));
+  asm volatile ("rdcycle %0": "=r"(mstart_cycle));
   gcd_val = gcd(411, 27117);
-  asm volatile ("csrr %0, cycle": "=r"(mstop_cycle));
+  asm volatile ("rdcycle %0": "=r"(mstop_cycle));
   printf ("GCD(411, 27117) = %d\n", gcd_val);
   printf ("start = %d, stop = %d, diff = %d\n",
           mstart_cycle, mstop_cycle, mstop_cycle - mstart_cycle);
