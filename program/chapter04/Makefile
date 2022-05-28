@@ -1,24 +1,5 @@
 TARGET = \
-	value_return \
-	func_arg \
-	cond \
-	frame_offset \
-	zero_return \
-	constants \
-	mem_access \
-	make_frame \
-	add_int32 \
-	arithmetics \
-	arith_64bit \
-	arith_32bit \
-	compare_slt \
-	rotate_test \
-	csi_test \
-	100_return \
-	shift_insts \
-	simple_pattern_match \
-	long_value \
-	minus_value
+	simple_func
 
 
 .PHONY: $(TARGET)
