@@ -17,7 +17,7 @@ int main ()
                                     search_data[2], target_data[2],
                                     search_data[3], target_data[3],
                                     search_data[4], target_data[4],
-                                    7000000);
+                                    6000000);
 
   printf("Pattern Match Result = %d\n", result);
 }

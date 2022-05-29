@@ -7,12 +7,7 @@ TARGET = \
 	constants \
 	mem_access \
 	make_frame \
-	add_int32 \
 	arithmetics \
-	arith_64bit \
-	arith_32bit \
-	compare_slt \
-	rotate_test \
 	csi_test \
 	100_return \
 	shift_insts \
