@@ -34,6 +34,8 @@ add_int32_CLANG_OPTION = -O3
 simple_select_exp_CLANG_OPTION = -O3
 struct_student_CLANG_OPTION = -O0
 select_exp_CLANG_OPTION = -O3
+compare_slt_CLANG_OPTION = -O3
+rotate_test_CLANG_OPTION = -O3
 
 include $(realpath ../common.mk ../../common.mk)
 

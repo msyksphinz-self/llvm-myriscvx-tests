@@ -4,6 +4,12 @@ DUMP  	?= $(realpath ../../../llvm-myriscvx120/build/bin/llvm-dis	   ../../../..
 MC    	?= $(realpath ../../../llvm-myriscvx120/build/bin/llvm-mc	   ../../../../llvm-myriscvx120/build/bin/llvm-mc	  )
 OBJDUMP ?= $(realpath ../../../llvm-myriscvx120/build/bin/llvm-objdump ../../../../llvm-myriscvx120/build/bin/llvm-objdump)
 
+# CLANG 	?= $(realpath ../../../llvm-myriscvx140/build/bin/clang        ../../../../llvm-myriscvx140/build/bin/clang       )
+# LLC   	?= $(realpath ../../../llvm-myriscvx140/build/bin/llc		   ../../../../llvm-myriscvx140/build/bin/llc		  )
+# DUMP  	?= $(realpath ../../../llvm-myriscvx140/build/bin/llvm-dis	   ../../../../llvm-myriscvx140/build/bin/llvm-dis	  )
+# MC    	?= $(realpath ../../../llvm-myriscvx140/build/bin/llvm-mc	   ../../../../llvm-myriscvx140/build/bin/llvm-mc	  )
+# OBJDUMP ?= $(realpath ../../../llvm-myriscvx140/build/bin/llvm-objdump ../../../../llvm-myriscvx140/build/bin/llvm-objdump)
+
 RISCV32 = ${HOME}/riscv32
 RISCV64 = ${HOME}/riscv64
 
