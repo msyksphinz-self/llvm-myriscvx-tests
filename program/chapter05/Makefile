@@ -1,6 +1,7 @@
 TARGET = \
 	value_return \
 	func_arg \
+	func_arguments \
 	cond \
 	frame_offset \
 	zero_return \
