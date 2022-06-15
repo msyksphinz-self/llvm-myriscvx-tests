@@ -8,12 +8,10 @@ struct Student
 
 int update_score (int student_no, int score)
 {
-  struct Student taro = {32, "Taro Yamada", 95};
+  volatile struct Student taro = {32, "Taro Yamada", 95};
   int no = taro.no; // Dummy code
 
-  if (student_no == no) {
-    taro.score += score; // Update struct.score
-  }
+  taro.score += score; // Update struct.score
 
   return taro.score;
 }

@@ -1,6 +1,6 @@
 int int_array()
 {
-  int array[4] = {100, 200, 300, 400};
+  volatile int array[4] = {100, 200, 300, 400};
 
   int a = array[0];
   int b = array[1];
