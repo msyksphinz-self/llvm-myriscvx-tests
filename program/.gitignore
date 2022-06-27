@@ -1,0 +1,13 @@
+*.bc
+*.log
+*.ll
+*.S
+!crt.S
+*.s
+!chapter08/pseudo_inst.S
+*.o
+*.dmp
+*.riscv
+*.ppm
+*.pgm
+!chapter08/assembly_test.S

@@ -1,20 +1,5 @@
 TARGET = \
-	value_return \
-	func_arg \
-	func_arguments \
-	cond \
-	frame_offset \
-	zero_return \
-	constants \
-	mem_access \
-	make_frame \
-	arithmetics \
-	csi_test \
-	100_return \
-	shift_insts \
-	simple_pattern_match \
-	long_value \
-	minus_value
+	simple_func
 
 
 .PHONY: $(TARGET)
@@ -36,6 +21,8 @@ CLANG64_OPTIONS += --target=riscv64-unknown-elf
 CLANG64_OPTIONS += -DRV64
 
 # arithmetics_CLANG_OPTION = -O3
+compare_slt_CLANG_OPTION = -O3
+rotate_test_CLANG_OPTION = -O3
 
 include $(realpath ../common.mk ../../common.mk)
 
