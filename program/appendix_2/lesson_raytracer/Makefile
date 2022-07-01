@@ -13,11 +13,11 @@ CFLAGS += -lm
 CFLAGS += -lgcc
 # CFLAGS += -T ./link.ld
 
-CLANG 	= ../../../../llvm-myriscvx120/build/bin/clang
-LLC   	= ../../../../llvm-myriscvx120/build/bin/llc
-DUMP  	= ../../../../llvm-myriscvx120/build/bin/llvm-dis
-MC    	= ../../../../llvm-myriscvx120/build/bin/llvm-mc
-OBJDUMP = ../../../../llvm-myriscvx120/build/bin/llvm-objdump
+CLANG 	= ../../../../llvm-myriscvx120-fp/build/bin/clang
+LLC   	= ../../../../llvm-myriscvx120-fp/build/bin/llc
+DUMP  	= ../../../../llvm-myriscvx120-fp/build/bin/llvm-dis
+MC    	= ../../../../llvm-myriscvx120-fp/build/bin/llvm-mc
+OBJDUMP = ../../../../llvm-myriscvx120-fp/build/bin/llvm-objdump
 
 COMMON_OPTIONS =
 COMMON_OPTIONS += -disable-tail-calls
