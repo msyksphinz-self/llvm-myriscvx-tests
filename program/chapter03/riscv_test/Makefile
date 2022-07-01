@@ -3,7 +3,6 @@ all: riscv_test
 include $(realpath ../common.mk ../../common.mk)
 
 riscv_test: riscv_test.c
-	$(CLANG) $@ -emit-llvm -c
-	$(LLVM_DIS) $@.bc
-	$(LLC) $@.bc -filetype=asm
-	riscv64-unknown-elf-gcc riscv_test.s -lc -o $@
+	$(CLANG) $@.c -emit-llvm -c --target=riscv64-unknown-elf
+	$(LLC) $@.bc -march=riscv64 --float-abi=hard -mattr="+d,+f" -filetype=asm
+	riscv64-unknown-elf-gcc riscv_test.s -march=rv64gc -lc -o $@
