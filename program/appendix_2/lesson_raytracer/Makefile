@@ -13,11 +13,11 @@ CFLAGS += -lm
 CFLAGS += -lgcc
 # CFLAGS += -T ./link.ld
 
-CLANG 	= ../../../../llvm-myriscvx120-fp/build/bin/clang
-LLC   	= ../../../../llvm-myriscvx120-fp/build/bin/llc
-DUMP  	= ../../../../llvm-myriscvx120-fp/build/bin/llvm-dis
-MC    	= ../../../../llvm-myriscvx120-fp/build/bin/llvm-mc
-OBJDUMP = ../../../../llvm-myriscvx120-fp/build/bin/llvm-objdump
+CLANG 	= ../../../../llvm-myriscvx120/build/bin/clang
+LLC   	= ../../../../llvm-myriscvx120/build/bin/llc
+DUMP  	= ../../../../llvm-myriscvx120/build/bin/llvm-dis
+MC    	= ../../../../llvm-myriscvx120/build/bin/llvm-mc
+OBJDUMP = ../../../../llvm-myriscvx120/build/bin/llvm-objdump
 
 COMMON_OPTIONS =
 COMMON_OPTIONS += -disable-tail-calls
@@ -31,7 +31,7 @@ TARGET=raytracer
 .PHONY: mandelbrot_llvm
 
 all: $(TARGET) $(TARGET).riscv $(TARGET).llvm.riscv
-	spike pk $(TARGET).llvm.riscv > $(TARGET).llvm.riscv.ppm
+	spike pk $(TARGET).llvm.riscv | grep -v "bbl loader" > $(TARGET).llvm.riscv.ppm
 
 $(TARGET).riscv: $(TARGET).cpp  # syscalls.c crt.S
 	riscv64-unknown-elf-g++ -o $@ $^ $(CFLAGS)
