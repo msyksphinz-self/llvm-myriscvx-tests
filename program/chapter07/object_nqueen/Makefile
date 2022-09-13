@@ -1,1 +1,1 @@
-../../chapter07/nqueen_global/Makefile
+../../appendix_1/nqueen_global/Makefile

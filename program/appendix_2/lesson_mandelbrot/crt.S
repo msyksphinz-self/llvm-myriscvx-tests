@@ -1,1 +1,1 @@
-../../chapter08/lesson_dhrystone/crt.S
+../../chapter06/lesson/crt.S

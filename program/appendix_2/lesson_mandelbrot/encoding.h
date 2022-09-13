@@ -1,1 +1,1 @@
-../../chapter08/lesson_dhrystone/encoding.h
+../../chapter06/lesson/encoding.h

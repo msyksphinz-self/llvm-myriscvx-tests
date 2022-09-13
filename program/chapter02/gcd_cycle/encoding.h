@@ -1,1 +1,1 @@
-../../chapter05/lesson/encoding.h
+../../chapter06/lesson/encoding.h

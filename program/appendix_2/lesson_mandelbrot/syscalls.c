@@ -1,1 +1,1 @@
-../../chapter08/lesson_dhrystone/syscalls.c
+../../chapter06/lesson/syscalls.c

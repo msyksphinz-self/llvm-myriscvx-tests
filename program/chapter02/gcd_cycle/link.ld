@@ -1,1 +1,1 @@
-../../chapter05/lesson/link.ld
+../../chapter06/lesson/link.ld

@@ -1,1 +1,1 @@
-../../chapter05/lesson/syscalls.c
+../../chapter06/lesson/syscalls.c
