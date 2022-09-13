@@ -1,1 +1,1 @@
-../../chapter07/nqueen_global/nqueen.h
+../../appendix_1/nqueen_global/nqueen.h

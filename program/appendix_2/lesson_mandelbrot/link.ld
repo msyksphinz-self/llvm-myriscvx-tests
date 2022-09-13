@@ -1,1 +1,1 @@
-../../chapter08/lesson_dhrystone/link.ld
+../../chapter06/lesson/link.ld
